@@ -14,7 +14,7 @@
                     data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                     class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">@lang('dashboard.create_title', ['page_title' => __('dashboard.category')])</h1>
+                    <h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">أنواع العقارات</h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
                     <span class="h-20px border-gray-300 border-start mx-4"></span>
@@ -33,7 +33,7 @@
                         <!--end::Item-->
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('categories.index')}}" class="text-muted text-hover-primary">@lang('dashboard.categories')</a>
+                            <a href="{{route('property_types.index')}}" class="text-muted text-hover-primary">أنواع العقارات</a>
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
@@ -42,7 +42,7 @@
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-dark">@lang('dashboard.create', ['page_title' => __('dashboard.category')])</li>
+                        <li class="breadcrumb-item text-dark">إنشاء نوع جديد </li>
                         <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
@@ -58,8 +58,8 @@
             <!--begin::Container-->
             <div id="kt_content_container" class="container-xxl">
                 <!--begin::Form-->
-                <form id="kt_ecommerce_add_product_form" action="{{ route('categories.store') }}" method="POST"
-                    class="form d-flex flex-column flex-lg-row store" data-kt-redirect="{{route('categories.index')}}" enctype='multipart/form-data'>
+                <form id="kt_ecommerce_add_product_form" action="{{ route('property_types.store') }}" method="POST"
+                    class="form d-flex flex-column flex-lg-row store" data-kt-redirect="{{route('property_types.index')}}" enctype='multipart/form-data'>
                     @csrf
                     <!--begin::Aside column-->
                     <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
@@ -118,40 +118,7 @@
                         <!--end::Thumbnail settings-->
 
 
-                        <!--begin::Status-->
-                        <div class="card card-flush py-4">
-                            <!--begin::Card header-->
-                            <div class="card-header">
-                                <!--begin::Card title-->
-                                <div class="card-title">
-                                    <h2>@lang('dashboard.status')</h2>
-                                </div>
-                                <!--end::Card title-->
-                                <!--begin::Card toolbar-->
-                                <div class="card-toolbar">
-                                    <div class="rounded-circle bg-success w-15px h-15px"
-                                        id="kt_ecommerce_add_category_status"></div>
-                                </div>
-                                <!--begin::Card toolbar-->
-                            </div>
-                            <!--end::Card header-->
-                            <!--begin::Card body-->
-                            <div class="card-body pt-0">
-                                <!--begin::Select2-->
-                                <select class="form-select mb-2" data-control="select2" data-hide-search="true"
-                                    data-placeholder="Select an option" name="is_active" id="kt_ecommerce_add_category_status_select">
-                                    <option></option>
-                                    <option value="1" selected="selected">@lang('dashboard.active')</option>
-                                    <option value="0">@lang('dashboard.not_active')</option>
-                                </select>
-                                <!--end::Select2-->
-                                <!--begin::Description-->
-                                <div class="text-muted fs-7">@lang('dashboard.status_desc',['page_title' => __('dashboard.banner')])</div>
-                                <!--end::Description-->
-                            </div>
-                            <!--end::Card body-->
-                        </div>
-                        <!--end::Status-->
+                       
                     </div>
                     <!--end::Aside column-->
                     <!--begin::Main column-->
@@ -166,6 +133,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-active-primary pb-4 " data-bs-toggle="tab"
                                     href="#kt_ecommerce_add_product_en">@lang('dashboard.EN')</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-active-primary pb-4 " data-bs-toggle="tab"
+                                    href="#kt_ecommerce_add_product_fa">النسخة الفارسية</a>
                             </li>
                             <!--end:::Tab item-->
                         </ul>
@@ -273,11 +244,61 @@
                                 </div>
                             </div>
                             <!--end::Tab pane-->
+                              <!--begin::Tab pane-->
+                              <div class="tab-pane fade" id="kt_ecommerce_add_product_fa" role="tab-panel">
+                                <div class="d-flex flex-column gap-7 gap-lg-10">
+                                    <!--begin::Inventory-->
+                                    <div class="card card-flush py-4">
+                                        <!--begin::Card header-->
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <h2>البيانات بالفارسية</h2>
+                                            </div>
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <!--begin::Input group-->
+                                            <div class="mb-10 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">@lang('dashboard.name')</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" name="name[fa]" value="{{ old('name.fa') }}"
+                                                    class="form-control mb-2" placeholder="@lang('dashboard.name')"
+                                                    value="" />
+                                                <!--end::Input-->
+                                                <!--begin::Description-->
+                                                <div class="text-muted fs-7">@lang('dashboard.name_desc' , ['page_title' => __('dashboard.category')])</div>
+                                                <!--end::Description-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div>
+                                                <!--begin::Label-->
+                                                <label class="form-label">@lang('dashboard.description')</label>
+                                                <!--end::Label-->
+                                                <!--begin::Editor-->
+                                                <textarea id="kt_ecommerce_add_product_description_fa" name="desc[fa]" class="form-control form-control-solid"
+                                                    style="height: 249px;">{{ old('desc.fa') }}</textarea>
+                                                <!--end::Editor-->
+                                                <!--begin::Description-->
+                                                <div class="text-muted fs-7">@lang('dashboard.desc_requirments' ,['page_title' => __('dashboard.category')])</div>
+                                                <!--end::Description-->
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                                        <!--end::Card header-->
+                                    </div>
+                                    <!--end::Inventory-->
+                                </div>
+                            </div>
+                            <!--end::Tab pane-->
                         </div>
                         <!--end::Tab content-->
                         <div class="d-flex justify-content-end">
                             <!--begin::Button-->
-                            <a href="{{ route('categories.index') }}" id="kt_ecommerce_add_product_cancel"
+                            <a href="{{ route('property_types.index') }}" id="kt_ecommerce_add_product_cancel"
                                 class="btn btn-light me-5">@lang('dashboard.cancel')</a>
                             <!--end::Button-->
                             <!--begin::Button-->

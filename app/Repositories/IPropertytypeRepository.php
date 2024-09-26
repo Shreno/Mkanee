@@ -2,7 +2,8 @@
 
 namespace App\Repositories;
 
-interface IRepository
+
+interface IPropertyTypeRepository
 {
     
 }

@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191); // Limits the length of indexed strings
 
-        Propertytype       ::observe(PropertytypeObserver::class);
+        PropertyType       ::observe(PropertytypeObserver::class);
         Banner         ::observe(BannerObserver::class);
         InitialPage    ::observe(InitialPageObserver::class);
         User           ::observe(UserObserver::class);
@@ -57,13 +57,8 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-        app()->singleton('lang', function (){
-            if ( session() -> has( 'lang' ) )
-                return session( 'lang' );
-            else
-                return 'ar';
+        app()->setLocale(session('lang', 'ar')); // Default to Arabic
 
-        });
         // Share notificationsBar with all views
         View::composer('*', function ($view) {
             if (Auth::check()) {

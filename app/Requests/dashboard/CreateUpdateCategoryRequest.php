@@ -27,10 +27,13 @@ class CreateUpdateCategoryRequest extends FormRequest
             
             'name.ar'         => 'required|string|max:191',
             'name.en'         => 'required|string|max:191',
-            'desc.ar'         => 'required|string',
-            'desc.en'         => 'required|string',
+            'name.fa'         => 'required|string|max:191',
+
+            'desc.ar'         => 'nullable|string',
+            'desc.en'         => 'nullable|string',
+            'desc.fa'         => 'nullable|string',
+
             'image'           => 'nullable',
-            'is_active'       => 'required',
         ];
     }
 }

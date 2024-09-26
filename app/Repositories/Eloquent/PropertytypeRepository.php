@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Propertytype;
-use App\Repositories\IPropertytypeRepository;
+use App\Models\PropertyType;
+use App\Repositories\IPropertyTypeRepository;
 
-class PropertytypeRepository extends BaseRepository implements IPropertytypeRepository
+class PropertyTypeRepository extends BaseRepository implements IPropertyTypeRepository
 {
     public function __construct()
     {
-        $this->model = new Category();
+        $this->model = new PropertyType();
     }
     
 }

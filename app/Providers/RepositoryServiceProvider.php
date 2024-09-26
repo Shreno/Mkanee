@@ -23,6 +23,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             "App\Repositories\IClientRepository",
             "App\Repositories\Eloquent\\ClientRepository");
+        $this->app->bind("App\Repositories\IPropertyTypeRepository", "App\Repositories\Eloquent\\PropertyTypeRepository");
+
 
     }
 

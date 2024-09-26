@@ -15,7 +15,7 @@ class ForntEndController extends Controller
 {
     public function home()
     {
-        $properties = Property::orderBy('created_at','desc')->where('is_active',1)->where('publish',1)->limit(8)->get();
+        $properties = Property::orderBy('created_at','desc')->where('is_active',1)->limit(8)->get();
         $propertyFeatures = PropertyFeature::all();
 
         $banner = Banner::first();
@@ -36,18 +36,16 @@ class ForntEndController extends Controller
     public function SetLanguage($lang)
     {
     
-        if ( in_array( $lang, [ 'ar', 'en' ] ) ) {
+        if ( in_array( $lang, [ 'ar', 'en','fa'] ) ) {
 
-            if ( session() -> has( 'lang' ) )
-                session() -> forget( 'lang' );
+            if ( session()->has( 'lang' ) )
+            {
+                session()->forget( 'lang' );
+                session()->put('lang', $lang );
 
-            session() -> put( 'lang', $lang );
 
-        } else {
-            if ( session() -> has( 'lang' ) )
-                session() -> forget( 'lang' );
 
-            session() -> put( 'lang', 'ar' );
+            }
         }
         return back();
     }}

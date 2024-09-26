@@ -85,7 +85,7 @@ use App\Models\Setting;
     
     if (!function_exists('languages')) {
       function languages() {
-        return ['ar', 'en'];
+        return ['ar', 'en','fa'];
       }
     }
     

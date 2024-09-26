@@ -32,7 +32,7 @@
                         <!--end::Item-->
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('categories.index')}}" class="text-muted text-hover-primary">@lang('dashboard.categories')</a>
+                            <a href="{{route('property_types.index')}}" class="text-muted text-hover-primary">انواع العقارات</a>
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
@@ -41,7 +41,7 @@
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-dark">@lang('dashboard.update', ['page_title' => __('dashboard.category')])</li>
+                        <li class="breadcrumb-item text-dark">تعديل العقارات</li>
                         <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
@@ -57,8 +57,8 @@
             <!--begin::Container-->
             <div id="kt_content_container" class="container-xxl">
                 <!--begin::Form-->
-                <form id="kt_ecommerce_add_product_form" action="{{ route('categories.update', $category->id) }}" method="POST"
-                    class="form d-flex flex-column flex-lg-row store" data-kt-redirect="{{route('categories.index')}}" enctype='multipart/form-data'>
+                <form id="kt_ecommerce_add_product_form" action="{{ route('property_types.update', $category->id) }}" method="POST"
+                    class="form d-flex flex-column flex-lg-row store" data-kt-redirect="{{route('property_types.index')}}" enctype='multipart/form-data'>
                     @csrf
                     @method('PUT')
                     <!--begin::Aside column-->
@@ -119,40 +119,7 @@
                         <!--end::Thumbnail settings-->
 
 
-                        <!--begin::Status-->
-                        <div class="card card-flush py-4">
-                            <!--begin::Card header-->
-                            <div class="card-header">
-                                <!--begin::Card title-->
-                                <div class="card-title">
-                                    <h2>Status</h2>
-                                </div>
-                                <!--end::Card title-->
-                                <!--begin::Card toolbar-->
-                                <div class="card-toolbar">
-                                    <div class="rounded-circle bg-success w-15px h-15px"
-                                        id="kt_ecommerce_add_category_status"></div>
-                                </div>
-                                <!--begin::Card toolbar-->
-                            </div>
-                            <!--end::Card header-->
-                            <!--begin::Card body-->
-                            <div class="card-body pt-0">
-                                <!--begin::Select2-->
-                                <select class="form-select mb-2" data-control="select2" data-hide-search="true"
-                                    data-placeholder="Select an option" name="is_active" id="kt_ecommerce_add_category_status_select">
-                                    <option></option>
-                                    <option value="1" {{ $category->is_active ? "selected='selected'" : ""}} >Published</option>
-                                    <option value="0" {{ !$category->is_active ? "selected='selected'" : ""}}>Unpublished</option>
-                                </select>
-                                <!--end::Select2-->
-                                <!--begin::Description-->
-                                <div class="text-muted fs-7">Set the category status.</div>
-                                <!--end::Description-->
-                            </div>
-                            <!--end::Card body-->
-                        </div>
-                        <!--end::Status-->
+                       
                     </div>
                     <!--end::Aside column-->
                     <!--begin::Main column-->
@@ -167,6 +134,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-active-primary pb-4 " data-bs-toggle="tab"
                                     href="#kt_ecommerce_add_product_en">@lang('dashboard.EN')</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-active-primary pb-4 " data-bs-toggle="tab"
+                                    href="#kt_ecommerce_add_product_fa">النسخة الفارسية</a>
                             </li>
                             <!--end:::Tab item-->
                         </ul>
@@ -210,7 +181,7 @@
                                                 <!--end::Label-->
                                                 <!--begin::Editor-->
                                                 <textarea id="kt_ecommerce_add_product_description_ar" name="desc[ar]" class="form-control form-control-solid"
-                                                    style="height: 249px;">{{$category->getTranslations('desc')['ar']}}</textarea>
+                                                    style="height: 249px;">{{ $category->getTranslations('desc')['ar'] ?? '' }}</textarea>
                                                 <!--end::Editor-->
                                                 <!--begin::Description-->
                                                 <div class="text-muted fs-7">Set a description to the product for better
@@ -261,7 +232,58 @@
                                                 <!--end::Label-->
                                                 <!--begin::Editor-->
                                                 <textarea id="kt_ecommerce_add_product_description_en" name="desc[en]" class="form-control form-control-solid"
-                                                    style="height: 249px;">{{$category->getTranslations('desc')['en']}}</textarea>
+                                                    style="height: 249px;">{{ $category->getTranslations('desc')['en'] ?? '' }}</textarea>
+                                                <!--end::Editor-->
+                                                <!--begin::Description-->
+                                                <div class="text-muted fs-7">Set a description to the product for better
+                                                    visibility.</div>
+                                                <!--end::Description-->
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                                        <!--end::Card header-->
+                                    </div>
+                                    <!--end::Inventory-->
+                                </div>
+                            </div>
+                            <!--end::Tab pane-->
+                             <!--begin::Tab pane-->
+                             <div class="tab-pane fade" id="kt_ecommerce_add_product_fa" role="tab-panel">
+                                <div class="d-flex flex-column gap-7 gap-lg-10">
+                                    <!--begin::Inventory-->
+                                    <div class="card card-flush py-4">
+                                        <!--begin::Card header-->
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <h2>البيانات باللغه الفارسية</h2>
+                                            </div>
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <!--begin::Input group-->
+                                            <div class="mb-10 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">@lang('dashboard.name')</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" name="name[fa]" value="{{$category->getTranslations('name')['fa']}}"
+                                                    class="form-control mb-2" placeholder="@lang('dashboard.name')"/>
+                                                <!--end::Input-->
+                                                <!--begin::Description-->
+                                                <div class="text-muted fs-7">A product name is required and recommended to
+                                                    be unique.</div>
+                                                <!--end::Description-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div>
+                                                <!--begin::Label-->
+                                                <label class="form-label">Description</label>
+                                                <!--end::Label-->
+                                                <!--begin::Editor-->
+                                                <textarea id="kt_ecommerce_add_product_description_fa" name="desc[fa]" class="form-control form-control-solid"
+                                                    style="height: 249px;">{{ $category->getTranslations('desc')['fa'] ?? '' }}</textarea>
                                                 <!--end::Editor-->
                                                 <!--begin::Description-->
                                                 <div class="text-muted fs-7">Set a description to the product for better
@@ -280,7 +302,7 @@
                         <!--end::Tab content-->
                         <div class="d-flex justify-content-end">
                             <!--begin::Button-->
-                            <a href="{{ route('categories.index') }}" id="kt_ecommerce_add_product_cancel"
+                            <a href="{{ route('property_types.index') }}" id="kt_ecommerce_add_product_cancel"
                                 class="btn btn-light me-5">Cancel</a>
                             <!--end::Button-->
                             <!--begin::Button-->

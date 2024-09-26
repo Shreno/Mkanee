@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\IPropertytypesRepository;
+use App\Repositories\IPropertyTypeRepository;
 use App\Requests\dashboard\CreateUpdateCategoryRequest;
 use Illuminate\Http\Request;
+use App\Models\PropertyType;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +14,7 @@ class PropertyTypeController extends Controller
 {
     private $catRepository;
 
-    public function __construct(IPropertytypesRepository $catRepository){
+    public function __construct(IPropertyTypeRepository $catRepository){
 
         $this->catRepository = $catRepository;
        
@@ -40,7 +41,7 @@ class PropertyTypeController extends Controller
 
     public function edit($id)
     {
-        $category = $this->catRepository->findOne($id);
+        $category=PropertyType::find($id);
         return view('dashboard.property_types.edit' , compact('category'));
     }
 

@@ -11,6 +11,10 @@ use App\Models\User;
 use App\Models\PrimaryAmenity;
 use App\Models\SubAmenity;
 use App\Models\PropertyFeature;
+use App\Models\Project;
+use App\Models\PropertyType;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NotifyUser;
@@ -68,14 +72,15 @@ class PropertyController extends Controller
     {
         $cities = City::all();
         $neighborhoods = Neighborhood::all();
-        $users = User::where('user_type',2)->get();
         $primaryAmenities = PrimaryAmenity::all();
         $subAmenities = SubAmenity::all();
         $propertyFeatures = PropertyFeature::all();
-        $bookingConditions=BookingCondition::all();
+        $projects=Project::all();
+        $propertyTypes=PropertyType::all();
+
 
         
-        return view('dashboard.properties.create', compact('cities', 'neighborhoods', 'users', 'primaryAmenities', 'subAmenities', 'propertyFeatures','bookingConditions'));
+        return view('dashboard.properties.create', compact('projects','cities', 'neighborhoods', 'propertyTypes', 'primaryAmenities', 'subAmenities', 'propertyFeatures'));
     }
 
     public function store(Request $request)
@@ -83,21 +88,28 @@ class PropertyController extends Controller
         $data = $request->validate([
             'title.ar' => 'required|string|max:191',
             'title.en' => 'required|string|max:191',
+            'title.fa' => 'required|string|max:191',
+
             'description.ar' => 'required|string',
             'description.en' => 'required|string',
+            'description.fa' => 'required|string',
+
             'map' => 'nullable|string',
-            'address' => 'required|string|max:255',
+            'address.ar' => 'required|string|max:255',
+            'address.en' => 'required|string|max:255',
+            'address.fa' => 'required|string|max:255',
+
             'city_id' => 'required|exists:cities,id',
             'neighborhood_id' => 'required|exists:neighborhoods,id',
             'direction' => 'required|in:north,south,east,west',
-            'user_id' => 'required|exists:users,id',
+            'project_id' => 'required|exists:projects,id',
+            'property_type_id'=>'required|exists:property_types,id',
             'primary_amenities' => 'required|array',
             'sub_amenities' => 'required|array',
             'property_features' => 'required|array',
             'images' => 'required|array',
-            'bookingConditions'=>'nullable|array',
-            'check_in_time' => 'required|date_format:H:i', // Validate check-in time
-            'check_out_time' => 'required|date_format:H:i|after:check_in_time', // Validate check-out time
+            'check_in_time' => 'nullable|date_format:H:i', // Validate check-in time
+            'check_out_time' => 'nullable|date_format:H:i|after:check_in_time', // Validate check-out time
             'rate_per_day' =>'required|numeric|min:0',
         ]);
 
@@ -109,7 +121,9 @@ class PropertyController extends Controller
             'city_id' => $data['city_id'],
             'neighborhood_id' => $data['neighborhood_id'],
             'direction' => $data['direction'],
-            'user_id' => $data['user_id'],
+            'project_id' => $data['project_id'],
+            'property_type_id' => $data['property_type_id'],
+
             'check_in_time'=>$data['check_in_time'],
             'check_out_time'=>$data['check_out_time'],
             'rate_per_day'=>$data['rate_per_day'],
@@ -119,13 +133,6 @@ class PropertyController extends Controller
         $property->primaryAmenities()->attach($data['primary_amenities']);
         $property->subAmenities()->attach($data['sub_amenities']);
         $property->propertyFeatures()->attach($data['property_features']);
-        if($request->bookingConditions!==null)
-        {
-            $property->propertyBookingConditions()->attach($data['bookingConditions']);
-
-        }
-
-
         foreach ($data['images'] as $image) {
             $property->images()->create(['image' => $image]);
         }
@@ -138,38 +145,45 @@ class PropertyController extends Controller
         $property = Property::findOrFail($property);
         $cities = City::all();
         $neighborhoods = Neighborhood::all();
-        $users = User::where('user_type',2)->get();
         $primaryAmenities = PrimaryAmenity::all();
         $subAmenities = SubAmenity::all();
         $propertyFeatures = PropertyFeature::all();
-        $bookingConditions=BookingCondition::all();
+        $projects=Project::all();
+        $propertyTypes=PropertyType::all();
 
 
-        return view('dashboard.properties.create', compact('bookingConditions','property', 'cities', 'neighborhoods', 'users', 'primaryAmenities', 'subAmenities', 'propertyFeatures'));
+        return view('dashboard.properties.create', compact('propertyTypes','property', 'cities', 'neighborhoods', 'projects', 'primaryAmenities', 'subAmenities', 'propertyFeatures'));
     }
 
     public function update(Request $request,  $property)
     {
         $property = Property::findOrFail($property);
         $data = $request->validate([
-            'title.ar' => 'required|string|max:191',
+          'title.ar' => 'required|string|max:191',
             'title.en' => 'required|string|max:191',
+            'title.fa' => 'required|string|max:191',
+
             'description.ar' => 'required|string',
             'description.en' => 'required|string',
+            'description.fa' => 'required|string',
+
             'map' => 'nullable|string',
-            'address' => 'required|string|max:255',
+            'address.ar' => 'required|string|max:255',
+            'address.en' => 'required|string|max:255',
+            'address.fa' => 'required|string|max:255',
+
             'city_id' => 'required|exists:cities,id',
             'neighborhood_id' => 'required|exists:neighborhoods,id',
             'direction' => 'required|in:north,south,east,west',
-            'user_id' => 'required|exists:users,id',
+            'project_id' => 'required|exists:projects,id',
+            'property_type_id'=>'required|exists:property_types,id',
             'primary_amenities' => 'required|array',
             'sub_amenities' => 'required|array',
             'property_features' => 'required|array',
-            'bookingConditions'=>'nullable|array',
             'images' => 'nullable|array',
-            'check_in_time' => 'required', // Validate check-in time
-            'check_out_time' => 'required', // Validate check-out time
-            'rate_per_day'  =>'required|numeric|min:0'
+            'check_in_time' => 'nullable|date_format:H:i', // Validate check-in time
+            'check_out_time' => 'nullable|date_format:H:i|after:check_in_time', // Validate check-out time
+            'rate_per_day' =>'required|numeric|min:0',
 
 
         ]);
@@ -186,7 +200,9 @@ class PropertyController extends Controller
             'city_id' => $data['city_id'],
             'neighborhood_id' => $data['neighborhood_id'],
             'direction' => $data['direction'],
-            'user_id' => $data['user_id'],
+            'project_id' => $data['project_id'],
+            'property_type_id' => $data['property_type_id'],
+
             'check_in_time'=>$data['check_in_time'],
             'check_out_time'=>$data['check_out_time'],
             'rate_per_day'=>$data['rate_per_day'],
@@ -200,12 +216,7 @@ class PropertyController extends Controller
         $property->subAmenities()->sync($data['sub_amenities']);
         $property->propertyFeatures()->sync($data['property_features']);
 
-        if($request->bookingConditions!==null)
-        {
-            $property->propertyBookingConditions()->attach($data['bookingConditions']);
-
-        }
-
+       
         if (isset($data['images'])) {
             $property->images()->delete();
             foreach ($data['images'] as $image) {

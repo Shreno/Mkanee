@@ -13,6 +13,8 @@ use App\Repositories\IAddressRepository;
 use App\Repositories\IOrderRepository;
 use App\Repositories\IPermissionRepository;
 use App\Repositories\IRoleRepository;
+use App\Repositories\IPropertyTypeRepository;
+
 use Illuminate\Support\ServiceProvider;
 
 class BaseRepositoryServiceProvider extends ServiceProvider

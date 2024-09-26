@@ -10,7 +10,7 @@ class Property extends Model
 {
     use HasFactory , HasTranslations;
     protected $guarded = [];
-    public $translatable = ['title','description'];
+    public $translatable = ['title','description','address'];
 
     protected function asJson($value)
     {
@@ -27,9 +27,9 @@ class Property extends Model
         return $this->belongsTo(Neighborhood::class);
     }
 
-    public function user()
+    public function project()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function primaryAmenities()

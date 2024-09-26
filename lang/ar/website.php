@@ -18,5 +18,6 @@ return [
     "property details"=>"تفاصيل العقار",
     'For rent'=>"للإيجار",
     "property"=>"عقار",
+    'Persian'=>'الفارسية'
 
 ];

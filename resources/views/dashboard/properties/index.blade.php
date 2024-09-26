@@ -62,9 +62,8 @@
                             <th class="">@lang('dashboard.city')</th>
                             <th class="">الحي</th>
                             <th class="">الاتجاة</th>
-                            <th class="">العميل</th>
+                            <th class="">المشروع</th>
                             <th class="">صورة</th>
-                            <th class="">الحالة</th>
 
                             <th class="text-end min-w-70px">@lang('dashboard.actions')</th>
                         </tr>
@@ -113,7 +112,7 @@
                                 </td>
                                 <td>
                                     <!--begin::User-->
-                                    <div class="badge badge-light-success">{{$property->user->name}}</div>
+                                    <div class="badge badge-light-success">{{$property->project->name}}</div>
                                     <!--end::User-->
                                 </td>
                                 <td>
@@ -121,25 +120,7 @@
                                         <img src="{{ asset($property->images->first()->image) }}"  style="width:60px;height:60px;border-radius:10px" alt="">
                                     @endif 
                                 </td>
-                                <td>
-                                    @if($property->is_active==1)
-                                    تمت الموافقة
-                                    @elseif($property->is_active==2)
-                                    تم الرفض
-                                    @else
-                                    @can('properties.edit')  
-                                    <button type="button" class="btn btn-info pull-center" data-toggle="modal"
-                                    data-target="#status{{$i}}">
-                                    <i class="fa fa-link"></i>
-                                    اجراء
-                                   </button>
-
-                                    {{-- <div class="menu-item px-3">
-                                        <a href="{{route('properties.active', $property->id)}}" class="menu-link px-3">الموافقة</a>
-                                    </div> --}}
-                                    @endcan                                 
-                                    @endif 
-                                </td>
+                               
                                 <!--begin::Actions=-->
                                 <td class="text-end">
                                     <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">

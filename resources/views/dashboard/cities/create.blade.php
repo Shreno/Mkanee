@@ -15,8 +15,8 @@
             <!--begin::Container-->
             <div id="kt_content_container" class="container-xxl">
                 <!--begin::Form-->
-                <form id="kt_ecommerce_add_product_form" action="{{ isset($city) ? route('cities.update', $city->id) : route('cities.store') }}" method="POST"
-                    class="form d-flex flex-column flex-lg-row store" data-kt-redirect="{{route('cities.index')}}" enctype='multipart/form-data'>
+                <form id="" action="{{ isset($city) ? route('cities.update', $city->id) : route('cities.store') }}" method="POST"
+                    class="form d-flex flex-column flex-lg-row " data-kt-redirect="{{route('cities.index')}}" enctype='multipart/form-data'>
                     @csrf
                     @if(isset($city))
                         @method('PUT')
@@ -262,7 +262,7 @@
                                 class="btn btn-light me-5">@lang('dashboard.cancel')</a>
                             <!--end::Button-->
                             <!--begin::Button-->
-                            <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+                            <button type="submit" id="" class="btn btn-primary">
                                 <span class="indicator-label">@lang('dashboard.save_changes')</span>
                                 <span class="indicator-progress">@lang('dashboard.please_wait')
                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

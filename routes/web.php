@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 // website routes
+
 Route::group(['middleware' => [  'admin-lang' , 'web'] , 'namespace' => 'Website'], function () {
 
 Route::get('/', "ForntEndController@home")->name('homepage');
@@ -216,6 +217,56 @@ Route::group(['middleware' => ['auth',  'admin-lang' , 'web' , 'check-role'] , '
         'title' => ['actions.delete_all', 'dashboard.property_types']
     ]);
 /*------------ end Of property_types ----------*/
+/*------------ start Of projects ----------*/
+Route::get('projects', [
+    'uses'      => 'ProjectController@index',
+    'as'        => 'projects.index',
+    'title'     => 'dashboard.projects',
+    'type'      => 'parent',
+    'child'     => [ 'projects.store','projects.edit', 'projects.update', 'projects.destroy'  ,'projects.deleteAll']
+]);
+
+# projects store
+Route::get('projects/create', [
+    'uses'  => 'ProjectController@create',
+    'as'    => 'projects.create',
+    'title' => ['actions.add', 'dashboard.projects']
+]);
+
+# projects store
+Route::post('projects/store', [
+    'uses'  => 'ProjectController@store',
+    'as'    => 'projects.store',
+    'title' => ['actions.add', 'dashboard.projects']
+]);
+
+# projects update
+Route::get('projects/{id}/edit', [
+    'uses'  => 'ProjectController@edit',
+    'as'    => 'projects.edit',
+    'title' => ['actions.edit', 'dashboard.projects']
+]);
+
+# projects update
+Route::put('projects/{id}', [
+    'uses'  => 'ProjectController@update',
+    'as'    => 'projects.update',
+    'title' => ['actions.edit', 'dashboard.projects']
+]);
+
+# projects delete
+Route::delete('projects/{id}', [
+    'uses'  => 'ProjectController@destroy',
+    'as'    => 'projects.destroy',
+    'title' => ['actions.delete', 'dashboard.projects']
+]);
+#delete all projects
+Route::post('delete-all-projects', [
+    'uses'  => 'ProjectController@deleteAll',
+    'as'    => 'projects.deleteAll',
+    'title' => ['actions.delete_all', 'dashboard.projects']
+]);
+/*------------ end Of projects ----------*/
 /*------------ start Of banners ----------*/
 Route::get('banners', [
     'uses'      => 'BannerController@index',

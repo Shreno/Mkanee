@@ -27,6 +27,10 @@
                                 <input type="text" name="title[en]" value="{{ old('title.en', isset($property) ? $property->getTranslation('title', 'en') : '') }}" class="form-control mb-2" />
                             </div>
                             <div class="mb-10 fv-row">
+                                <label class="form-label">العنوان (FA)</label>
+                                <input type="text" name="title[fa]" value="{{ old('title.fa', isset($property) ? $property->getTranslation('title', 'fa') : '') }}" class="form-control mb-2" />
+                            </div>
+                            <div class="mb-10 fv-row">
                                 <label class="form-label">الوصف (AR)</label>
                                 <textarea name="description[ar]" class="form-control mb-2">{{ old('description.ar', isset($property) ? $property->getTranslation('description', 'ar') : '') }}</textarea>
                             </div>
@@ -35,13 +39,26 @@
                                 <textarea name="description[en]" class="form-control mb-2">{{ old('description.en', isset($property) ? $property->getTranslation('description', 'en') : '') }}</textarea>
                             </div>
                             <div class="mb-10 fv-row">
+                                <label class="form-label">الوصف (FA)</label>
+                                <textarea name="description[fa]" class="form-control mb-2">{{ old('description.fa', isset($property) ? $property->getTranslation('description', 'fa') : '') }}</textarea>
+                            </div>
+                            <div class="mb-10 fv-row">
                                 <label class="form-label">الخريطة</label>
                                 <input type="text" name="map" value="{{ old('map', isset($property) ? $property->map : '') }}" class="form-control mb-2" />
                             </div>
                             <div class="mb-10 fv-row">
-                                <label class="form-label">العنوان</label>
-                                <input type="text" name="address" value="{{ old('address', isset($property) ? $property->address : '') }}" class="form-control mb-2" />
+                                <label class="form-label">العنوان (AR)</label>
+                                <input type="text" name="address[ar]" value="{{ old('address.ar', isset($property) ? $property->getTranslation('address','ar') : '') }}" class="form-control mb-2" />
                             </div>
+                            <div class="mb-10 fv-row">
+                                <label class="form-label">العنوان (EN)</label>
+                                <input type="text" name="address[en]" value="{{ old('address.en', isset($property) ? $property->getTranslation('address','en') : '') }}" class="form-control mb-2" />
+                            </div>
+                            <div class="mb-10 fv-row">
+                                <label class="form-label">العنوان (FA)</label>
+                                <input type="text" name="address[fa]" value="{{ old('address.fa', isset($property) ? $property->getTranslation('address','fa') : '') }}" class="form-control mb-2" />
+                            </div>
+                          
                             <div class="mb-10 fv-row">
                                 <label class="form-label">المدينة</label>
                                 <select name="city_id" id="city_id" class="form-select mb-2">
@@ -74,11 +91,22 @@
                             </div>
                            
                             <div class="mb-10 fv-row">
-                                <label class="form-label">العميل</label>
-                                <select name="user_id" id="user_id" class="form-select mb-2">
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}" {{ isset($property) && $property->user_id == $user->id ? 'selected' : '' }}>
-                                            {{ $user->name }}
+                                <label class="form-label">المشروع</label>
+                                <select name="project_id" id="" class="form-select mb-2">
+                                    @foreach($projects as $project)
+                                        <option value="{{ $project->id }}" {{ isset($property) && $property->project_id == $project->id ? 'selected' : '' }}>
+                                            {{ $project->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-10 fv-row">
+                                <label class="form-label">نوع العقار</label>
+                                <select name="property_type_id" id="" class="form-select mb-2">
+                                    @foreach($propertyTypes as $propertyType)
+                                        <option value="{{ $propertyType->id }}" {{ isset($property) && $property->property_type_id == $propertyType->id ? 'selected' : '' }}>
+                                            {{ $propertyType->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -108,26 +136,32 @@
                                 </select>
                             </div>
                             <div class="mb-10 fv-row">
-                                <label class="form-label">ميزات العقار</label>
+                                <label class="form-label"> ميزات العقار داخلية</label>
                                 <select name="property_features[]" id="property_features" multiple class="form-select mb-2" multiple >
                                     @foreach($propertyFeatures as $propertyFeature)
+                                    @if($propertyFeature->type=='internal')
                                         <option value="{{ $propertyFeature->id }}" {{ isset($property) && $property->propertyFeatures->contains($propertyFeature->id) ? 'selected' : '' }}>
                                             {{ $propertyFeature->name }}
                                         </option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-10 fv-row">
+                                <label class="form-label"> ميزات العقار الخارجية</label>
+                                <select name="property_features[]" id="property_features_ex"  class="form-select mb-2" multiple >
+                                    @foreach($propertyFeatures as $propertyFeature)
+                                    @if($propertyFeature->type=='external')
+
+                                        <option value="{{ $propertyFeature->id }}" {{ isset($property) && $property->propertyFeatures->contains($propertyFeature->id) ? 'selected' : '' }}>
+                                            {{ $propertyFeature->name }}
+                                        </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                             {{--  --}}
-                            <div class="mb-10 fv-row">
-                                <label class="form-label">@lang('dashboard.booking-conditions')</label>
-                                <select name="bookingConditions[]" id="property_conditions" multiple class="form-select mb-2" multiple>
-                                    @foreach($bookingConditions as $bookingConditions)
-                                        <option value="{{ $bookingConditions->id }}" {{ isset($property) && $property->propertyBookingConditions->contains($bookingConditions->id) ? 'selected' : '' }}>
-                                            {{ $bookingConditions->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                          
                             <div class="mb-5 fv-row">
                                 <label class="form-label">@lang('dashboard.check_in_time')</label>
                                 <input type="time" name="check_in_time" value="{{old('check_in_time', isset($property) ? $property->check_in_time : '') }}" class="form-control mb-2">
@@ -176,7 +210,8 @@
     $("#primary_amenities").select2();
     $("#sub_amenities").select2();
     $("#property_features").select2();
-    $("#property_conditions").select2();
+    $("#property_features_ex").select2();
+
 
 
 </script>

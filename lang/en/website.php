@@ -18,4 +18,5 @@ return [
     "property details"=>"property details",
     "For rent"=>"For rent",
     "property"=>"property",
+    "Persian"=>"Persian",
 ];
