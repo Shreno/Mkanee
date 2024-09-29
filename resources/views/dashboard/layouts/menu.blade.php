@@ -493,6 +493,90 @@
 <!--end::Menu item-->
 @endcan 
 
+<!--  -->
+@can('statuses.index')
+<!--begin::Menu item-->
+<div class="menu-item menu-sub-indention menu-accordion  {{areActiveRoutes(['statuses.index' , 'statuses.create' , 'statuses.edit'])}}" data-kt-menu-trigger="click">
+    <!--begin::Menu link-->
+    <a href="#" class="menu-link py-3 {{areActiveRoutes(['statuses.index' , 'statuses.create' , 'statuses.edit'])}}">
+        <span class="menu-icon">
+            <img src="{{ asset('images/status-quo.png') }}" style="width:25px;height:25px">
+        </span>
+        <span class="menu-title">@lang('dashboard.statuses')</span>
+        <span class="menu-arrow"></span>
+    </a>
+    <!--end::Menu link-->
+
+    <!--begin::Menu sub-->
+    <div class="menu-sub menu-sub-accordion pt-3">
+        <!--begin::Menu item-->
+        <div class="menu-item">
+            <a href="{{ route('statuses.index') }}" class="menu-link py-3  {{ isActiveRoute('statuses.index') }}">
+                <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">@lang('dashboard.all_title', ['page_title' => __('dashboard.statuses')])</span>
+            </a>
+        </div>
+        <!--end::Menu item-->
+
+        <!--begin::Menu item-->
+        <div class="menu-item">
+            <a href="{{route('statuses.create')}}" class="menu-link py-3 {{ isActiveRoute('statuses.create') }}">
+                <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">@lang('dashboard.create_title', ['page_title' => __('dashboard.statuses')])</span>
+            </a>
+        </div>
+        <!--end::Menu item-->
+    </div>
+    <!--end::Menu sub-->
+</div>
+<!--end::Menu item-->
+@endcan 
+
+
+<!--  -->
+@can('contacts.index')
+<!--begin::Menu item-->
+<div class="menu-item menu-sub-indention menu-accordion  {{areActiveRoutes(['contacts.index' , 'contacts.create' , 'contacts.edit'])}}" data-kt-menu-trigger="click">
+    <!--begin::Menu link-->
+    <a href="#" class="menu-link py-3 {{areActiveRoutes(['contacts.index' , 'contacts.create' , 'contacts.edit'])}}">
+        <span class="menu-icon">
+            <img src="{{ asset('images/contact-us.png') }}" style="width:25px;height:25px">
+        </span>
+        <span class="menu-title">@lang('dashboard.contacts')</span>
+        <span class="menu-arrow"></span>
+    </a>
+    <!--end::Menu link-->
+
+    <!--begin::Menu sub-->
+    <div class="menu-sub menu-sub-accordion pt-3">
+        <!--begin::Menu item-->
+        <div class="menu-item">
+            <a href="{{ route('contacts.index') }}" class="menu-link py-3  {{ isActiveRoute('contacts.index') }}">
+                <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">@lang('dashboard.all_title', ['page_title' => __('dashboard.contacts')])</span>
+            </a>
+        </div>
+        <!--end::Menu item-->
+
+       
+    </div>
+    <!--end::Menu sub-->
+</div>
+<!--end::Menu item-->
+@endcan 
+
+
+<!--  -->
+
+
+<!--  -->
+
 
 <div class="menu-item">
     <div class="menu-content pt-8 pb-2">

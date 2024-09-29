@@ -1,4 +1,4 @@
-@section('pageTitle' ,__('dashboard.clients'))
+@section('pageTitle' ,__('dashboard.contacts'))
 
 @extends('dashboard.layouts.app')
 @section('content')
@@ -24,7 +24,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                        <input type="text" data-kt-ecommerce-category-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="@lang('dashboard.search_title', ['page_title' => __('dashboard.client')])" />
+                        <input type="text" data-kt-ecommerce-category-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="@lang('dashboard.search_title', ['page_title' => __('dashboard.contact')])" />
                     </div>
                     <!--end::Search-->
                 </div>
@@ -32,13 +32,11 @@
                 <!--begin::Card toolbar-->
                 <div class="card-toolbar">
                     <!--begin::Add customer-->
-                    @can('admins.create')
-                    <a href="{{ route('clients.create')}}" class="btn btn-primary">@lang('dashboard.create_title', ['page_title' => __('dashboard.client')])</a>
-                    @endcan 
+                    
                     <!--end::Add customer-->
                     <span class="w-5px h-2px"></span>
-                    @can('admins.deleteAll')
-                    <button type="button" data-route="{{route('clients.deleteAll')}}" 
+                    @can('contacts.deleteAll')
+                    <button type="button" data-route="{{route('contacts.deleteAll')}}" 
                     class="btn btn-danger delete_all_button">
                         <i class="feather icon-trash"></i>@lang('dashboard.delete_selected')</button>
                     @endcan 
@@ -60,8 +58,9 @@
                                 </div>
                             </th>
                             <th class="min-w-250px">@lang('dashboard.name')</th>
-                            <th class="min-w-250px">@lang('dashboard.email')</th>
                             <th class="min-w-250px">@lang('dashboard.phone number')</th>
+                            <th class="min-w-250px">@lang('dashboard.status')</th>
+
                             <th class="text-end min-w-70px">@lang('dashboard.actions')</th>
                         </tr>
                         <!--end::Table row-->
@@ -69,13 +68,13 @@
                     <!--end::Table head-->
                     <!--begin::Table body-->
                     <tbody class="fw-bold text-gray-600">
-                        @foreach ($clients as $client)
+                        @foreach ($contacts as $contact)
                             <!--begin::Table row-->
-                            <tr data-id="{{$client->id}}">
+                            <tr data-id="{{$contact->id}}">
                                 <!--begin::Checkbox-->
                                 <td>
                                     <div class="form-check form-check-sm form-check-custom form-check-solid ">
-                                        <input class="form-check-input checkSingle" type="checkbox" value="1" id="{{$client->id}}"/>
+                                        <input class="form-check-input checkSingle" type="checkbox" value="1" id="{{$contact->id}}"/>
                                     </div>
                                 </td>
                                 <!--end::Checkbox-->
@@ -84,19 +83,16 @@
                                     <div class="d-flex">
                                         <div class="ms-5">
                                             <!--begin::Title-->
-                                            <a href="{{ route('clients.show', $client->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="name">{{$client->name}}</a>
+                                            <a href="{{ route('contacts.show', $contact->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="name">{{$contact->full_name}}</a>
                                             <!--end::Title-->
                                         </div>
                                     </div>
                                 </td>
-                                <td>
-                                    <!--begin::Badges-->
-                                    <div class="d-flex align-items-center">
-                                        {{$client->email}}
-                                    </div>
-                                    <!--end::Badges-->
-                                </td>
-                                <td>{{$client->phone}}</td>
+                               
+                                <td>{{$contact->phone}}</td>
+
+                                <td>{{isset($contact->status) ? $contact->status->name :"" }}</td>
+
                               
                                 <!--begin::Action=-->
                                 <td class="text-end">
@@ -111,17 +107,17 @@
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                         <!--begin::Menu item-->
-                                        @can('clients.edit')
+                                        @can('contacts.edit')
                                         <div class="menu-item px-3">
-                                            <a href="{{route('clients.edit', $client->id)}}" class="menu-link px-3">@lang('dashboard.edit')</a>
+                                            <a href="{{route('contacts.edit', $contact->id)}}" class="menu-link px-3">تغير الحالة</a>
                                         </div>
                                         @endcan 
                                         <!--end::Menu item-->
                                       
-                                        @can('clients.destroy')
+                                        @can('contacts.destroy')
 
                                         <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3" data-kt-ecommerce-category-filter="delete_row" data-url="{{route('clients.destroy', $client->id)}}" data-id="{{$client->id}}">@lang('dashboard.delete')</a>
+                                            <a href="#" class="menu-link px-3" data-kt-ecommerce-category-filter="delete_row" data-url="{{route('contacts.destroy', $contact->id)}}" data-id="{{$contact->id}}">@lang('dashboard.delete')</a>
                                         </div>
                                         @endcan 
 

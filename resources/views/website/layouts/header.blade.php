@@ -31,13 +31,23 @@
                                     </div>
                                     <div class="header-account flex align-center">
                                     <div class="header-cart">
-                                    <a class="header-cart-btn" id="cart-icon" href="">
-                                    <i class="fas fa-solid fa-globe fa-xl"></i>
-                                    <span class="cart-count {{app()->getLocale()=='en' ? 'active' :'deactive'}} ">EN</span>
-                                    <span class="cart-count {{app()->getLocale()=='ar' ? 'active' :'deactive'}}">AR</span>
-                                    <span class="cart-count {{app()->getLocale()=='fa' ? 'active' :'deactive'}}">Fa</span>
-                                    </a>
-                                    <div class="header-mini">
+                                        @if(app()->getLocale()=='en')
+                                            <a class="header-cart-btn" id="" href="{{url('website/set-lang/ar')}}">
+                                            <span class="cart-count">AR</span>
+                                            <span class="cart-count">EN</span>
+                                            </a>
+                                       
+
+
+                                        @else
+                                        <a class="header-cart-btn" id="" href="{{url('website/set-lang/en')}}">
+                                            <span class="cart-count">AR</span>
+                                            <span class="cart-count">EN</span>
+                                            </a>
+
+                                        @endif
+                                   
+                                    <!-- <div class="header-mini">
                                         <div class="inner">                      
                                         <div class="mini-cart">
                                             <div class="mini-cart-total">
@@ -51,7 +61,7 @@
                                         </div>
                                         </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                         <div class="flat-bt-top sc-btn-top ">
                                             <a class="sc-button style-2 btn-icon" data-toggle="modal" data-target="#popup_bid">

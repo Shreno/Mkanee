@@ -41,7 +41,7 @@ Route::group(['middleware' => ['web']] , function () {
     Route::post('admin-login', [LoginController::class, 'login'])->name('admin-login');
 });
 
-Route::group(['middleware' => ['auth',  'admin-lang' , 'web' , 'check-role'] , 'namespace' => 'Dashboard'], function () {
+Route::group(['middleware' => ['auth' , 'web' , 'check-role'] , 'namespace' => 'Dashboard'], function () {
 
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('edit-profile', [AdminController::class, 'editProfile'])->name('edit-profile');
@@ -829,6 +829,121 @@ Route::post('delete-all-clients', [
     'title' => ['actions.delete_all', 'dashboard.clients']
 ]);
 /*------------ end Of clients ----------*/
+
+/*------------ start Of statuses ----------*/
+Route::get('statuses', [
+    'uses'      => 'StatusController@index',
+    'as'        => 'statuses.index',
+    'title'     => 'dashboard.statuses',
+    'type'      => 'parent',
+    'child'     => [ 'statuses.create','statuses.edit', 'statuses.destroy'  ,'statuses.deleteAll']
+]);
+
+# statuses store
+Route::get('statuses/create', [
+    'uses'  => 'StatusController@create',
+    'as'    => 'statuses.create',
+    'title' => ['actions.add', 'dashboard.statuses']
+]);
+
+# statuses store
+Route::post('statuses/store', [
+    'uses'  => 'StatusController@store',
+    'as'    => 'statuses.store',
+    'title' => ['actions.add', 'dashboard.statuses']
+]);
+# statuses show
+Route::get('statuses/{id}/show', [
+    'uses'  => 'StatusController@show',
+    'as'    => 'statuses.show',
+    'title' => ['actions.show', 'dashboard.statuses']
+]);
+
+# statuses update
+Route::get('statuses/{id}/edit', [
+    'uses'  => 'StatusController@edit',
+    'as'    => 'statuses.edit',
+    'title' => ['actions.edit', 'dashboard.statuses']
+]);
+
+# statuses update
+Route::put('statuses/{id}', [
+    'uses'  => 'StatusController@update',
+    'as'    => 'statuses.update',
+    'title' => ['actions.edit', 'dashboard.statuses']
+]);
+
+# statuses delete
+Route::delete('statuses/{id}', [
+    'uses'  => 'StatusController@destroy',
+    'as'    => 'statuses.destroy',
+    'title' => ['actions.delete', 'dashboard.statuses']
+]);
+#delete all statuses
+Route::post('delete-all-statuses', [
+    'uses'  => 'StatusController@deleteAll',
+    'as'    => 'statuses.deleteAll',
+    'title' => ['actions.delete_all', 'dashboard.statuses']
+]);
+/*------------ end Of StatusController ----------*/
+
+
+/*------------ start Of contacts ----------*/
+Route::get('contacts', [
+    'uses'      => 'ContactUsController@index',
+    'as'        => 'contacts.index',
+    'title'     => 'dashboard.contacts',
+    'type'      => 'parent',
+    'child'     => [ 'contacts.create','contacts.edit', 'contacts.destroy'  ,'contacts.deleteAll']
+]);
+
+# contacts store
+Route::get('contacts/create', [
+    'uses'  => 'ContactUsController@create',
+    'as'    => 'contacts.create',
+    'title' => ['actions.add', 'dashboard.contacts']
+]);
+
+# contacts store
+Route::post('contacts/store', [
+    'uses'  => 'ContactUsController@store',
+    'as'    => 'contacts.store',
+    'title' => ['actions.add', 'dashboard.contacts']
+]);
+# contacts show
+Route::get('contacts/{id}/show', [
+    'uses'  => 'ContactUsController@show',
+    'as'    => 'contacts.show',
+    'title' => ['actions.show', 'dashboard.contacts']
+]);
+
+# contacts update
+Route::get('contacts/{id}/edit', [
+    'uses'  => 'ContactUsController@edit',
+    'as'    => 'contacts.edit',
+    'title' => ['actions.edit', 'dashboard.contacts']
+]);
+
+# contacts update
+Route::put('contacts/{id}', [
+    'uses'  => 'ContactUsController@update',
+    'as'    => 'contacts.update',
+    'title' => ['actions.edit', 'dashboard.contacts']
+]);
+
+# contacts delete
+Route::delete('contacts/{id}', [
+    'uses'  => 'ContactUsController@destroy',
+    'as'    => 'contacts.destroy',
+    'title' => ['actions.delete', 'dashboard.contacts']
+]);
+#delete all contacts
+Route::post('delete-all-contacts', [
+    'uses'  => 'ContactUsController@deleteAll',
+    'as'    => 'contacts.deleteAll',
+    'title' => ['actions.delete_all', 'dashboard.contacts']
+]);
+/*------------ end Of contact_us ----------*/
 
 
 

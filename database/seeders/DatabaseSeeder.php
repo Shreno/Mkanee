@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call(SmsSeeder::class);
         $this->call(CitySeeder::class);
         $this->call(BannerSeeder::class);
+        
+        $this->call(StatusSeeder::class);
+
         $this->call(SettingSeeder::class);
         $this->call(NeighborhoodsSeeder::class);
         $this->call(PrimaryAmenitySeeder::class);

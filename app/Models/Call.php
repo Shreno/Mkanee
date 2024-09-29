@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contact extends Model
+class Call extends Model
 {
     use HasFactory;
-    protected $fillable = ['full_name', 'phone', 'message', 'project_id','status_id'];
+    protected $fillable = ['title', 'message', 'contact_id'];
 
     public function status()
     {

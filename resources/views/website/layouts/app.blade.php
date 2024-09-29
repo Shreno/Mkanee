@@ -14,7 +14,18 @@
     <link rel="stylesheet" href="{{asset('app/dist/app.css')}}">
     <!--  -->
     @if(app()->getLocale() == 'ar' || app()->getLocale() == 'fa')
-    <link id="rtl-style" rel="stylesheet" href="{{asset('app/dist/app.ar.css')}}" disabled>
+    <link id="rtl-style" rel="stylesheet" href="{{asset('app/dist/app.ar.css')}}" >
+    <style>
+        body{
+            direction: rtl;        
+        }
+        </style>
+    @else
+    <style>
+        body{
+            direction: ltr;        
+        }
+        </style>
 
     @endif
     <!--  -->

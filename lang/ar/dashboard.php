@@ -259,6 +259,8 @@ return [
     "Total amount"=>"المبلغ الإجمالى",
     "testimonials"=>"الأراء",
     "job_title"=>"المسمى الوظيفى",
+    "statuses"=>"الحالات",
+    "contacts"=>"المهتمين",
     
 
 

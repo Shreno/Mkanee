@@ -639,5 +639,7 @@ $(document).ready(function() {
             $('.cart-count').hide(); // Hide both
             $('.cart-count:contains("EN")').show(); // Show Arabic
         } 
+        window.location.href = $(this).attr('href');
+
     });
 });
