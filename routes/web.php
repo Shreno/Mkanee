@@ -23,8 +23,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => [  'admin-lang' , 'web'] , 'namespace' => 'Website'], function () {
 
 Route::get('/', "ForntEndController@home")->name('homepage');
-Route::get('about_us', "AboutUsController@index")->name('about_us');
+Route::get('about_us', "ForntEndController@aboutUs")->name('about_us');
 Route::get('contact_us', "ContactUsController@index")->name('contact_us');
+Route::post('contact_us', "ContactUsController@store")->name('contact_us.store');
+
+
 Route::resource('all-properties', "PropertiesController");
 Route::get('website/set-lang/{lang}', 'ForntEndController@SetLanguage');
 
@@ -267,6 +270,61 @@ Route::post('delete-all-projects', [
     'title' => ['actions.delete_all', 'dashboard.projects']
 ]);
 /*------------ end Of projects ----------*/
+
+/*------------ start Of testimonials ----------*/
+Route::get('testimonials', [
+    'uses'      => 'TestimonialController@index',
+    'as'        => 'testimonials.index',
+    'title'     => 'dashboard.testimonials',
+    'type'      => 'parent',
+    'child'     => [ 'testimonials.store','testimonials.edit', 'testimonials.update', 'testimonials.destroy'  ,'testimonials.deleteAll']
+]);
+
+# testimonials store
+Route::get('testimonials/create', [
+    'uses'  => 'TestimonialController@create',
+    'as'    => 'testimonials.create',
+    'title' => ['actions.add', 'dashboard.testimonials']
+]);
+
+# testimonials store
+Route::post('testimonials/store', [
+    'uses'  => 'TestimonialController@store',
+    'as'    => 'testimonials.store',
+    'title' => ['actions.add', 'dashboard.testimonials']
+]);
+
+# testimonials update
+Route::get('testimonials/{id}/edit', [
+    'uses'  => 'TestimonialController@edit',
+    'as'    => 'testimonials.edit',
+    'title' => ['actions.edit', 'dashboard.testimonials']
+]);
+
+# testimonials update
+Route::put('testimonials/{id}', [
+    'uses'  => 'TestimonialController@update',
+    'as'    => 'testimonials.update',
+    'title' => ['actions.edit', 'dashboard.testimonials']
+]);
+
+# testimonials delete
+Route::delete('testimonials/{id}', [
+    'uses'  => 'TestimonialController@destroy',
+    'as'    => 'testimonials.destroy',
+    'title' => ['actions.delete', 'dashboard.testimonials']
+]);
+#delete all testimonials
+Route::post('delete-all-testimonials', [
+    'uses'  => 'TestimonialController@deleteAll',
+    'as'    => 'testimonials.deleteAll',
+    'title' => ['actions.delete_all', 'dashboard.testimonials']
+]);
+
+
+
+/*------------ end Of testimonials ----------*/
+
 /*------------ start Of banners ----------*/
 Route::get('banners', [
     'uses'      => 'BannerController@index',

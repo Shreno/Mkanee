@@ -162,14 +162,19 @@
                             </div>
                             {{--  --}}
                           
-                            <div class="mb-5 fv-row">
+                            <!-- <div class="mb-5 fv-row">
                                 <label class="form-label">@lang('dashboard.check_in_time')</label>
                                 <input type="time" name="check_in_time" value="{{old('check_in_time', isset($property) ? $property->check_in_time : '') }}" class="form-control mb-2">
                                 
-                            </div>
-                            <div class="mb-5 fv-row">
+                            </div> -->
+                            <!-- <div class="mb-5 fv-row">
                                 <label class="form-label">@lang('dashboard.check_out_time')</label>
                                 <input type="time" value="{{ old('check_out_time', isset($property) ? $property->check_out_time : '') }}" name="check_out_time" class="form-control mb-2">
+                                
+                            </div> -->
+                            <div class="mb-5 fv-row">
+                                <label class="form-label">المساحة بالقدم المربع</label>
+                                <input type="number"  value="{{ old('area', isset($property) ? $property->area : '') }}" name="area" class="form-control mb-2">
                                 
                             </div>
                             <div class="mb-5 fv-row">

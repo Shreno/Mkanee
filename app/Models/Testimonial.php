@@ -2,35 +2,23 @@
 
 namespace App\Models;
 
-use App\Traits\UploadTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use App\Traits\UploadTrait;
 
-class Project extends Model
+
+class Testimonial extends Model
 {
-    use HasFactory , HasTranslations , UploadTrait;
+    use HasFactory,HasTranslations,UploadTrait;
+    public $translatable = ['name','job_title','desc'];
 
-    public $translatable = ['name' , 'desc'];
-
-    protected $fillable = ['name' , 'image' , 'desc' , 'is_active'];
-    
+    protected $fillable = ['name', 'job_title', 'desc', 'image'];
 
     protected function asJson($value)
     {
         return json_encode($value, JSON_UNESCAPED_UNICODE);
     }
-    
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', 1);
-    }
-
-    public function usercategories()
-    {
-        return $this->hasMany(UserCategory::class);
-    }
-
     public function setImageAttribute($value)
     {
         if($value){
@@ -41,11 +29,6 @@ class Project extends Model
     public function getImageAttribute($value)
     {
         return asset('storage/'.$value);
-    }
-
-    public function property()
-    {
-        return $this->hasMany(property::class);
     }
 
 }

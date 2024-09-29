@@ -257,6 +257,9 @@ return [
     "Amount"=>"المبلغ",
     "Net account"=>"صافى الحساب",
     "Total amount"=>"المبلغ الإجمالى",
+    "testimonials"=>"الأراء",
+    "job_title"=>"المسمى الوظيفى",
+    
 
 
 

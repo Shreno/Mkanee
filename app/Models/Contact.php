@@ -8,19 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     use HasFactory;
+    protected $fillable = ['full_name', 'phone', 'message', 'project_id'];
 
-    protected $fillable = [
-       'user_id' ,'name' ,'country_code' ,'phone' ,'email' , 'message'
-    ];
-
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function getFullPhoneAttribute()
-    {
-        return $this->attributes['country_code'] . $this->attributes['phone'];
-    }
 }

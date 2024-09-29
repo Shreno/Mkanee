@@ -108,9 +108,11 @@ class PropertyController extends Controller
             'sub_amenities' => 'required|array',
             'property_features' => 'required|array',
             'images' => 'required|array',
-            'check_in_time' => 'nullable|date_format:H:i', // Validate check-in time
-            'check_out_time' => 'nullable|date_format:H:i|after:check_in_time', // Validate check-out time
+            // 'check_in_time' => 'nullable|date_format:H:i', // Validate check-in time
+            // 'check_out_time' => 'nullable|date_format:H:i|after:check_in_time', // Validate check-out time
             'rate_per_day' =>'required|numeric|min:0',
+            'area' =>'nullable|numeric|min:0',
+
         ]);
 
         $property = Property::create([
@@ -124,9 +126,11 @@ class PropertyController extends Controller
             'project_id' => $data['project_id'],
             'property_type_id' => $data['property_type_id'],
 
-            'check_in_time'=>$data['check_in_time'],
-            'check_out_time'=>$data['check_out_time'],
+            // 'check_in_time'=>$data['check_in_time'],
+            // 'check_out_time'=>$data['check_out_time'],
             'rate_per_day'=>$data['rate_per_day'],
+            'area'=>$data['area'],
+
 
         ]);
 
@@ -181,9 +185,12 @@ class PropertyController extends Controller
             'sub_amenities' => 'required|array',
             'property_features' => 'required|array',
             'images' => 'nullable|array',
-            'check_in_time' => 'nullable|date_format:H:i', // Validate check-in time
-            'check_out_time' => 'nullable|date_format:H:i|after:check_in_time', // Validate check-out time
+            // 'check_in_time' => 'nullable|date_format:H:i', // Validate check-in time
+            // 'check_out_time' => 'nullable|date_format:H:i|after:check_in_time', // Validate check-out time
             'rate_per_day' =>'required|numeric|min:0',
+            'area' =>'nullable|numeric|min:0',
+
+            
 
 
         ]);
@@ -203,9 +210,11 @@ class PropertyController extends Controller
             'project_id' => $data['project_id'],
             'property_type_id' => $data['property_type_id'],
 
-            'check_in_time'=>$data['check_in_time'],
-            'check_out_time'=>$data['check_out_time'],
+            // 'check_in_time'=>$data['check_in_time'],
+            // 'check_out_time'=>$data['check_out_time'],
             'rate_per_day'=>$data['rate_per_day'],
+            'area'=>$data['area'],
+
 
             
         

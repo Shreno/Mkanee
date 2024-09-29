@@ -57,7 +57,13 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-        app()->setLocale(session('lang', 'ar')); // Default to Arabic
+        app()->singleton('lang', function (){
+            if ( session() -> has( 'lang' ) )
+                return session( 'lang' );
+            else
+                return 'ar';
+
+        });
 
         // Share notificationsBar with all views
         View::composer('*', function ($view) {
