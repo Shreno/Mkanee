@@ -223,15 +223,10 @@
                                     <div class="row">
                                         <div class="col-md-4">{{$call->title}}</div>
                                         <div class="col-md-4">{{$call->message}}</div>
-
                                         <div class="col-md-4">{{$call->created_at}}</div>
-
                                     </div>
-                                   
-                                    
                                 </div>
-                                <!--end::Notice-->
-                                
+                                <!--end::Notice-->    
                     </div>
                     @endforeach
                     <!--end::Content-->

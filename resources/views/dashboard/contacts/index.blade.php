@@ -109,7 +109,7 @@
                                         <!--begin::Menu item-->
                                         @can('contacts.edit')
                                         <div class="menu-item px-3">
-                                            <a href="{{route('contacts.edit', $contact->id)}}" class="menu-link px-3">تغير الحالة</a>
+                                            <a href="{{route('contacts.edit', $contact->id)}}" class="menu-link px-3">عرض</a>
                                         </div>
                                         @endcan 
                                         <!--end::Menu item-->

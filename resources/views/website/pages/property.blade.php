@@ -95,21 +95,30 @@
                                 <div class="wrap-overview wrap-style">
                                 <h3 class="titles">{{ __('website.overview') }}</h3>
                                 <div class="icon-wrap flex justify-space">
-                                        <div class="box-icon">
+                                            <!--  -->
+                                @foreach($property->primaryAmenities as $primaryAmenitie)
+
+                                            <div class="box-icon">
                                             @foreach($property->Property_Sub_Amenity as $index=>$Property_Sub_Amenity)
-                                            
+                                            @if($Property_Sub_Amenity->subAmenities->amenity->id==$primaryAmenitie->id)
+
+
                                             <div class="inner flex">
                                                 <div class="icon">
-                                                    <img width="18" height="18" src="{{$Property_Sub_Amenity->subAmenities->amenity->icon}}" alt="">
-                                                      
+                                                    <img width="16" height="17" src="{{$Property_Sub_Amenity->subAmenities->amenity->icon}}" alt="">
+                                                    
                                                 </div>
                                                 <div class="content">
-                                                    <div class="font-2">{{$Property_Sub_Amenity->subAmenities->name}}</div>
+                                                    <div class="font-2">{{$Property_Sub_Amenity->subAmenities->name}}:</div>
                                                     <div class="font-2 fw-7">{{$Property_Sub_Amenity->number}}</div>
                                                 </div>
                                             </div>
+                                            @endif
                                             @endforeach
+                                           
                                         </div>
+                                        @endforeach
+                                           
                                     
                                       
                                           
