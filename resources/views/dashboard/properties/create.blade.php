@@ -111,30 +111,57 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <!--  -->
+                            <div class="mb-10 fv-row">
+    <label class="form-label">المرافق الأساسية</label>
+    <select name="primary_amenities[]" multiple id="primary_amenities" class="form-select mb-2">
+        @foreach($primaryAmenities as $primaryAmenity)
+            <option value="{{ $primaryAmenity->id }}" 
+                {{ isset($property) && $property->primaryAmenities->contains($primaryAmenity->id) ? 'selected' : '' }}>
+                {{ $primaryAmenity->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+<div class="mb-10 fv-row">
+    <label class="form-label">المرافق الفرعية</label>
+    <div id="sub_amenities_container">
+        @foreach($primaryAmenities as $primaryAmenity)
+            <div class="sub-amenities" id="sub_amenities_{{ $primaryAmenity->id }}" style="display: none;">
+                <label class="form-label">{{ $primaryAmenity->name }} - المرافق الفرعية</label>
+                <select name="sub_amenities_{{ $primaryAmenity->id }}[]" multiple class="form-select mb-2 sub-amenity-select" data-primary-id="{{ $primaryAmenity->id }}">
+                    @foreach($primaryAmenity->subAmenities as $subAmenity)
+                        <option value="{{ $subAmenity->id }}" 
+                            {{ isset($property) && $property->subAmenities->contains($subAmenity->id) ? 'selected' : '' }}>
+                            {{ $subAmenity->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <!-- حقول العدد الخاصة بالمرافق الفرعية -->
+                @foreach($primaryAmenity->subAmenities as $subAmenity)
+                <?php  if(isset($property))
+                {
+                    $number=$property->Property_Sub_Amenity->where('sub_amenity_id',$subAmenity->id)->first();
+                }?>
+                    <div class="sub-amenity-quantity" id="quantity_{{ $subAmenity->id }}" style="display: none;">
+                        <label>العدد لـ {{ $subAmenity->name }}</label>
+                        <input type="number" name="sub_amenity_quantity[{{ $subAmenity->id }}]" 
+                            class="form-control mb-2" 
+                            placeholder="العدد لـ {{ $subAmenity->name }}" 
+                            value="{{ isset($number) ? $number->number ?? 0 : 0 }}">
+                    </div>
+                @endforeach
+            </div>
+        @endforeach
+    </div>
+</div>
+                           <!--  -->
 
                           
 
-                            <div class="mb-10 fv-row">
-                                <label class="form-label">المرافق الأساسية</label>
-                                <select name="primary_amenities[]" multiple id="primary_amenities" class="form-select mb-2" multiple>
-                                    @foreach($primaryAmenities as $primaryAmenity)
-                                        <option value="{{ $primaryAmenity->id }}" {{ isset($property) && $property->primaryAmenities->contains($primaryAmenity->id) ? 'selected' : '' }}>
-                                            {{ $primaryAmenity->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
                            
-                            <div class="mb-10 fv-row">
-                                <label class="form-label">المرافق الفرعية</label>
-                                <select name="sub_amenities[]" id="sub_amenities" multiple class="form-select mb-2" multiple>
-                                    @foreach($subAmenities as $subAmenity)
-                                        <option value="{{ $subAmenity->id }}" {{ isset($property) && $property->subAmenities->contains($subAmenity->id) ? 'selected' : '' }}>
-                                            {{ $subAmenity->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
                             <div class="mb-10 fv-row">
                                 <label class="form-label"> ميزات العقار داخلية</label>
                                 <select name="property_features[]" id="property_features" multiple class="form-select mb-2" multiple >
@@ -179,7 +206,7 @@
                             </div>
                             <div class="mb-5 fv-row">
                                 <label class="form-label">@lang('dashboard.rate_per_day')</label>
-                                <input type="number" step="4" value="{{ old('rate_per_day', isset($property) ? $property->rate_per_day : '') }}" name="rate_per_day" class="form-control mb-2">
+                                <input type="number" value="{{ old('rate_per_day', isset($property) ? $property->rate_per_day : '') }}" name="rate_per_day" class="form-control mb-2">
                                 
                             </div>
 
@@ -220,4 +247,43 @@
 
 
 </script>
+<script>
+  $(document).ready(function() {
+    // عندما يتم تغيير المرافق الأساسية
+    $('#primary_amenities').on('change', function() {
+        var selectedAmenities = $(this).val(); // جلب المرافق الأساسية المختارة
+
+        // إخفاء جميع المرافق الفرعية أولاً
+        $('.sub-amenities').hide();
+
+        // إظهار المرافق الفرعية الخاصة بالمرافق الأساسية المختارة
+        if (selectedAmenities) {
+            selectedAmenities.forEach(function(amenityId) {
+                $('#sub_amenities_' + amenityId).show();
+            });
+        }
+    });
+
+    // عندما يتم تغيير المرافق الفرعية
+    $('.sub-amenity-select').on('change', function() {
+        var primaryId = $(this).data('primary-id');
+        var selectedSubAmenities = $(this).val(); // جلب المرافق الفرعية المختارة
+
+        // إخفاء جميع حقول العدد للمرافق الفرعية المرتبطة بهذا المرفق الأساسي
+        $('#sub_amenities_' + primaryId + ' .sub-amenity-quantity').hide();
+
+        // إظهار حقول العدد للمرافق الفرعية المختارة
+        if (selectedSubAmenities) {
+            selectedSubAmenities.forEach(function(subAmenityId) {
+                $('#quantity_' + subAmenityId).show();
+            });
+        }
+    });
+
+    // عرض المرافق الفرعية وحقول العدد المختارة مسبقًا عند تحميل الصفحة
+    $('#primary_amenities').trigger('change');
+    $('.sub-amenity-select').trigger('change');
+});
+</script>
+
 @endpush

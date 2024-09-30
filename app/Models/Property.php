@@ -37,9 +37,10 @@ class Property extends Model
         return $this->belongsToMany(PrimaryAmenity::class, 'property_primary_amenity');
     }
 
+
     public function subAmenities()
     {
-        return $this->belongsToMany(SubAmenity::class, 'property_sub_amenity');
+        return $this->belongsToMany(SubAmenity::class, 'property_sub_amenity')->withPivot('number');
     }
 
     public function propertyFeatures()

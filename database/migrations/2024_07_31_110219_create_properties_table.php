@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->text('title');
             $table->text('description');
             $table->text('map')->nullable();
-            $table->string('address');
+            $table->text('address');
             $table->foreignId('city_id')->constrained()->onDelete('cascade');
             $table->foreignId('neighborhood_id')->constrained()->onDelete('cascade');
             $table->enum('direction', ['north', 'south', 'east', 'west']);

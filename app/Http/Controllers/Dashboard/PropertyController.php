@@ -13,6 +13,7 @@ use App\Models\SubAmenity;
 use App\Models\PropertyFeature;
 use App\Models\Project;
 use App\Models\PropertyType;
+use App\Models\Property_Sub_Amenity;
 
 
 use Illuminate\Http\Request;
@@ -105,7 +106,7 @@ class PropertyController extends Controller
             'project_id' => 'required|exists:projects,id',
             'property_type_id'=>'required|exists:property_types,id',
             'primary_amenities' => 'required|array',
-            'sub_amenities' => 'required|array',
+            // 'sub_amenities' => 'required|array',
             'property_features' => 'required|array',
             'images' => 'required|array',
             // 'check_in_time' => 'nullable|date_format:H:i', // Validate check-in time
@@ -135,8 +136,25 @@ class PropertyController extends Controller
         ]);
 
         $property->primaryAmenities()->attach($data['primary_amenities']);
-        $property->subAmenities()->attach($data['sub_amenities']);
+        // $property->subAmenities()->attach($data['sub_amenities']);
         $property->propertyFeatures()->attach($data['property_features']);
+
+        $primaryAmenities = $request->input('primary_amenities', []);
+
+        foreach ($primaryAmenities as $primaryAmenityId) {
+            $subAmenities = $request->input('sub_amenities_' . $primaryAmenityId, []);
+            if ($subAmenities) {
+                foreach ($subAmenities as $subAmenityId) {
+                    // حفظ الكمية المرتبطة بالمرفق الفرعي
+                    $quantity = $request->input('sub_amenity_quantity.' . $subAmenityId, 0);
+                    Property_Sub_Amenity::where('sub_amenity_id',$subAmenityId)->where('property_id',$property->id)->delete();
+    
+                    // ربط المرافق الفرعية بالعقار مع الكمية
+                    $property->subAmenities()->attach($subAmenityId, ['number' => $quantity]);
+                }
+            }
+        }
+        
         foreach ($data['images'] as $image) {
             $property->images()->create(['image' => $image]);
         }
@@ -182,7 +200,6 @@ class PropertyController extends Controller
             'project_id' => 'required|exists:projects,id',
             'property_type_id'=>'required|exists:property_types,id',
             'primary_amenities' => 'required|array',
-            'sub_amenities' => 'required|array',
             'property_features' => 'required|array',
             'images' => 'nullable|array',
             // 'check_in_time' => 'nullable|date_format:H:i', // Validate check-in time
@@ -222,8 +239,22 @@ class PropertyController extends Controller
         ]);
 
         $property->primaryAmenities()->sync($data['primary_amenities']);
-        $property->subAmenities()->sync($data['sub_amenities']);
         $property->propertyFeatures()->sync($data['property_features']);
+        $primaryAmenities = $request->input('primary_amenities', []);
+
+        foreach ($primaryAmenities as $primaryAmenityId) {
+            $subAmenities = $request->input('sub_amenities_' . $primaryAmenityId, []);
+            if ($subAmenities) {
+                foreach ($subAmenities as $subAmenityId) {
+                    // حفظ الكمية المرتبطة بالمرفق الفرعي
+                    $quantity = $request->input('sub_amenity_quantity.' . $subAmenityId, 0);
+                    Property_Sub_Amenity::where('sub_amenity_id',$subAmenityId)->where('property_id',$property->id)->delete();
+    
+                    // ربط المرافق الفرعية بالعقار مع الكمية
+                    $property->subAmenities()->attach($subAmenityId, ['number' => $quantity]);
+                }
+            }
+        }
 
        
         if (isset($data['images'])) {
