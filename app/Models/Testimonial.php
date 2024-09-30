@@ -22,7 +22,7 @@ class Testimonial extends Model
     public function setImageAttribute($value)
     {
         if($value){
-          return $this->attributes['image'] = $this->StoreFile('categories' , $value);
+          return $this->attributes['image'] = $this->StoreFile('testimonials' , $value);
         }
     }
 
