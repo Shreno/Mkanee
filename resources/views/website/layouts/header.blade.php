@@ -8,7 +8,7 @@
                                 <div class="inner-container flex justify-space align-center">
                                     <!-- Logo Box -->
                                     <div class="logo-box flex">
-                                        <div class="logo"><a href="index.html">
+                                        <div class="logo"><a href="{{route('homepage')}}">
                                             <img class="one" src="{{asset('assets/images/logo/logo2xx.png')}}" alt="logo-img" width="197" height="48">
                                             <img class="two" src="{{asset('assets/images/logo/logo2x.png')}}" alt="logo-img" width="197" height="48">
                                         </a>
@@ -88,7 +88,7 @@
                 <div class="mobile-menu">
                     <div class="menu-backdrop"></div>                            
                     <nav class="menu-box">
-                        <div class="nav-logo"><a href="index.html">
+                        <div class="nav-logo"><a href="{{route('homepage')}}">
                             <img class="one" src="{{asset('assets/images/logo/logo2xx.png')}}" alt="logo-img" width="197" height="48">
                             <img class="two" src="{{asset('assets/images/logo/logo2x.png')}}" alt="logo-img" width="197" height="48">
                         </a></div>
