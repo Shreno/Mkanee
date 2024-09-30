@@ -11,7 +11,7 @@
             <div class="col-lg-12">
                 <div class="title-inner">
                     <div class="title-group fs-12">
-                        <a class="home fw-6 text-color-6" href="{{ route('home') }}">
+                        <a class="home fw-6 text-color-6" href="{{ route('homepage') }}">
                             @lang('website.home')
                         </a>
                         <span>

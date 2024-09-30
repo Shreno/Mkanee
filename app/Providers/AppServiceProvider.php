@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Banner;
-use App\Models\Propertytype;
+use App\Models\PropertyType;
 use App\Models\InitialPage;
 use App\Models\User;
 use App\Observers\BannerObserver;

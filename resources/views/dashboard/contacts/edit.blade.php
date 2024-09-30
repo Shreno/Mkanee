@@ -116,7 +116,7 @@
                             </div>
                             <!--end::Input group-->
 
-                            @if($contact->message!=null || $contact->message=="" )
+                            @if($contact->message!=NULL)
                               <!--begin::Input group-->
                               <div class="row mb-6">
                                 <!--begin::Label-->
@@ -199,14 +199,14 @@
                     <!--begin::Card header-->
                     <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_deactivate" aria-expanded="true" aria-controls="kt_account_deactivate">
                         <div class="card-title m-0">
-                            <h3 class="fw-bolder m-0">إجراءات التواصل </h3>
+                            <h3 class="fw-bolder m-0">الاجرئات</h3>
                         </div>
                     </div>
                     <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_deactivate" aria-expanded="true" aria-controls="kt_account_deactivate">
-                    <button type="button" class="btn btn-info pull-center" data-toggle="modal"
+                    <button style="height: fit-content;" type="button" class="btn btn-info pull-center" data-toggle="modal"
                                     data-target="#status">
                                     <i class="fa fa-link"></i>
-                                    أضافة تواصل
+                                    أضافة إجراء
                     </button>
 
                     </div>
@@ -221,9 +221,9 @@
                                 <!--begin::Notice-->
                                 <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed mb-9 p-6">
                                     <div class="row">
-                                        <div class="col-md-4">{{$call->title}}</div>
-                                        <div class="col-md-4">{{$call->message}}</div>
-                                        <div class="col-md-4">{{$call->created_at}}</div>
+                                        <p class="">{{$call->title}}</p>
+                                        <p class="">{{$call->message}}</p>
+                                        <p class="">{{$call->created_at}}</p>
                                     </div>
                                 </div>
                                 <!--end::Notice-->    

@@ -90,7 +90,7 @@
                     <div class="row">                      
                         <div class="col-lg-12">
                             <div class="title-inner style">
-                                <div class="title-group fs-12"><a class="home fw-6 text-color-3" href="{{route('home')}}">@lang('website.home')</a><span >قائمة العقارات</span></div>
+                                <div class="title-group fs-12"><a class="home fw-6 text-color-3" href="{{route('homepage')}}">@lang('website.home')</a><span >قائمة العقارات</span></div>
                             </div>
                         </div> 
                     </div>

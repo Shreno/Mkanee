@@ -27,6 +27,9 @@ return new class extends Migration
 
             
             $table->integer('is_active')->default(0); 
+            $table->integer('area')->nullable(); // استبدل column_name بالعمود الذي تريد أن يليه عمود view
+            $table->integer('view')->default(0);
+
             $table->time('check_in_time')->nullable(); // وقت الوصول، الافتراضي 04:00 مساءً
             $table->time('check_out_time')->nullable(); // وقت المغادرة
             $table->decimal('rate_per_day', 10, 2)->default(0);
