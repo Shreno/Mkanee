@@ -49,16 +49,7 @@
                 <!--begin::User menu-->
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     {{-- notivication --}}
-                    <div>
-                        <a href="{{route('notifications.index')}}" >
-                            <i class="fa fa-bell"></i>
-                            @if ($notificationsBar->count() > 0)
-                            <span class="label label-warning">{{ $notificationsBar->count() }}</span>
-                            @endif
-
-                        </a>
-                      
-                    </div>
+                 
 
 
                     {{--  --}}
