@@ -23,6 +23,8 @@ return [
     'show_title'              => 'عرض :page_title',
     'create_title'            => 'إضافة :page_title',
     'update_title'            => 'تعديل بيانات :page_title',
+    'edit_title'            => 'تعديل بيانات :page_title',
+
     'create_title_page'       => 'عرض صفحة اضافة :page_title',
     'update_title_page'       => 'عرض صفحة تعديل :page_title',
     'search_title'            => 'بحث عن  :page_title',

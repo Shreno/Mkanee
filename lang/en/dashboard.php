@@ -20,6 +20,8 @@ return [
     'status_desc'             => 'Set :page_title Status',
     'create_title'            => 'Add :page_title',
     'update_title'            => 'Edit :page_title Data',
+    'edit_title'            => 'Edit :page_title Data',
+
     'create_title_page'       => 'Adding :page_title Page',
     'update_title_page'       => 'Editing :page_title Paage',
     'search_title'            => 'Search :page_title',
