@@ -135,25 +135,21 @@ class PropertyController extends Controller
 
         ]);
 
-        $property->primaryAmenities()->attach($data['primary_amenities']);
-        // $property->subAmenities()->attach($data['sub_amenities']);
         $property->propertyFeatures()->attach($data['property_features']);
 
         $primaryAmenities = $request->input('primary_amenities', []);
 
-        foreach ($primaryAmenities as $primaryAmenityId) {
-            $subAmenities = $request->input('sub_amenities_' . $primaryAmenityId, []);
-            if ($subAmenities) {
-                foreach ($subAmenities as $subAmenityId) {
-                    // حفظ الكمية المرتبطة بالمرفق الفرعي
-                    $quantity = $request->input('sub_amenity_quantity.' . $subAmenityId, 0);
-                    PropertySubAmenity::where('sub_amenity_id',$subAmenityId)->where('property_id',$property->id)->delete();
-    
-                    // ربط المرافق الفرعية بالعقار مع الكمية
-                    $property->subAmenities()->attach($subAmenityId, ['number' => $quantity]);
-                }
-            }
+              // Sync amenities and their quantities
+    $amenities = [];
+    if ($request->has('primary_amenities')) {
+        foreach ($request->primary_amenities as $amenityId) {
+            $quantity = $request->input('amenity_quantities.' . $amenityId, 1); // Default quantity to 1 if not provided
+            $amenities[$amenityId] = ['number' => $quantity];
         }
+    }
+
+    // Attach or sync amenities with quantities
+    $property->primaryAmenities()->sync($amenities);
         
         foreach ($data['images'] as $image) {
             $property->images()->create(['image' => $image]);
@@ -202,14 +198,8 @@ class PropertyController extends Controller
             'primary_amenities' => 'required|array',
             'property_features' => 'required|array',
             'images' => 'nullable|array',
-            // 'check_in_time' => 'nullable|date_format:H:i', // Validate check-in time
-            // 'check_out_time' => 'nullable|date_format:H:i|after:check_in_time', // Validate check-out time
             'rate_per_day' =>'required|numeric|min:0',
             'area' =>'nullable|numeric|min:0',
-
-            
-
-
         ]);
 
 
@@ -226,9 +216,6 @@ class PropertyController extends Controller
             'direction' => $data['direction'],
             'project_id' => $data['project_id'],
             'property_type_id' => $data['property_type_id'],
-
-            // 'check_in_time'=>$data['check_in_time'],
-            // 'check_out_time'=>$data['check_out_time'],
             'rate_per_day'=>$data['rate_per_day'],
             'area'=>$data['area'],
 
@@ -238,23 +225,20 @@ class PropertyController extends Controller
 
         ]);
 
-        $property->primaryAmenities()->sync($data['primary_amenities']);
         $property->propertyFeatures()->sync($data['property_features']);
         $primaryAmenities = $request->input('primary_amenities', []);
 
-        foreach ($primaryAmenities as $primaryAmenityId) {
-            $subAmenities = $request->input('sub_amenities_' . $primaryAmenityId, []);
-            if ($subAmenities) {
-                foreach ($subAmenities as $subAmenityId) {
-                    // حفظ الكمية المرتبطة بالمرفق الفرعي
-                    $quantity = $request->input('sub_amenity_quantity.' . $subAmenityId, 0);
-                    PropertySubAmenity::where('sub_amenity_id',$subAmenityId)->where('property_id',$property->id)->delete();
-    
-                    // ربط المرافق الفرعية بالعقار مع الكمية
-                    $property->subAmenities()->attach($subAmenityId, ['number' => $quantity]);
-                }
-            }
+       // Sync amenities and their quantities
+    $amenities = [];
+    if ($request->has('primary_amenities')) {
+        foreach ($request->primary_amenities as $amenityId) {
+            $quantity = $request->input('amenity_quantities.' . $amenityId, 1); // Default quantity to 1 if not provided
+            $amenities[$amenityId] = ['number' => $quantity];
         }
+    }
+
+    // Attach or sync amenities with quantities
+    $property->primaryAmenities()->sync($amenities);
 
        
         if (isset($data['images'])) {

@@ -81,13 +81,7 @@
                                 <!--begin::Category=-->
                                 <td>
                                     <div class="d-flex">
-                                        <!--begin::Thumbnail-->
-                                        @if($neighborhood->image)
-                                        <a href="{{ route('testimonials.edit', $neighborhood->id) }}" class="symbol symbol-50px">
-                                            <span class="symbol-label" style="background-image:url({{$neighborhood->image}});"></span>
-                                        </a>
-                                        @endcan 
-                                        <!--end::Thumbnail-->
+                                      
                                         <div class="ms-5">
                                             <!--begin::Title-->
                                             <a href="{{ route('testimonials.edit', $neighborhood->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">

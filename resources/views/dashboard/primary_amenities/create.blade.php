@@ -134,6 +134,21 @@
                                                 <!--end::Description-->
                                             </div>
                                             <!--end::Input group-->
+                                             <!--end::Input group-->
+                                            <div class="mb-10 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">الأسم بالفارسية</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" name="name[fa]" value="{{ old('name.fa', isset($row) ? $row->getTranslations('name')['fa'] : '') }}"
+                                                    class="form-control mb-2" placeholder="الأسم بالفارسية"
+                                                    />
+                                                <!--end::Input-->
+                                                <!--begin::Description-->
+                                                <div class="text-muted fs-7">@lang('dashboard.name_desc' , ['page_title' => __('dashboard.primary-amenities')])</div>
+                                                <!--end::Description-->
+                                            </div>
+                                            <!--end::Input group-->
                                         </div>
                                         <!--end::Card header-->
                                     </div>

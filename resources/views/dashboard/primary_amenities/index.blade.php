@@ -29,9 +29,18 @@
                     <!--end::Search-->
                 </div>
                 <!--end::Card title-->
-                <!--begin::Card toolbar-->
                 <div class="card-toolbar">
-                   
+                    @can('primary-amenities.create')
+                    <!--begin::Add customer-->
+                    <a href="{{ route('primary-amenities.create')}}" class="btn btn-primary">@lang('dashboard.create_title', ['page_title' => __('dashboard.primary-amenities')])</a>
+                    <!--end::Add customer-->
+                    @endcan 
+                    @can('primary-amenities.deleteAll')
+                    <span class="w-5px h-2px"></span>
+                    <button type="button" data-route="{{route('primary-amenities.deleteAll')}}" 
+                    class="btn btn-danger delete_all_button">
+                        <i class="feather icon-trash"></i>@lang('dashboard.delete_selected')</button>
+                    @endcan 
                 </div>
                 <!--end::Card toolbar-->
             </div>
@@ -51,19 +60,21 @@
                             </th>
                             <th class="min-w-250px">@lang('dashboard.icon')</th>
                             <th class="min-w-150px">@lang('dashboard.name')</th>
+
+                            <th class="text-end min-w-70px">@lang('dashboard.actions')</th>
                         </tr>
                         <!--end::Table row-->
                     </thead>
                     <!--end::Table head-->
                     <!--begin::Table body-->
                     <tbody class="fw-bold text-gray-600">
-                        @foreach ($rows as $row)
+                        @foreach ($rows as $propertyfeature)
                             <!--begin::Table row-->
-                            <tr data-id="{{$row->id}}">
+                            <tr data-id="{{$propertyfeature->id}}">
                                 <!--begin::Checkbox-->
                                 <td>
                                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                        <input class="form-check-input checkSingle" type="checkbox" value="1" id="{{$row->id}}"/>
+                                        <input class="form-check-input checkSingle" type="checkbox" value="1" id="{{$propertyfeature->id}}"/>
                                     </div>
                                 </td>
                                 <!--end::Checkbox-->
@@ -71,28 +82,59 @@
                                 <td>
                                     <div class="d-flex">
                                         <!--begin::Thumbnail-->
-                                        @if($row->icon)
-                                        <a href="{{ route('primary-amenities.show', $row->id) }}" class="symbol symbol-50px">
-                                            <span class="symbol-label" style="background-image:url({{$row->icon}});"></span>
+                                        @if($propertyfeature->icon)
+                                        <a href="{{ route('primary-amenities.edit', $propertyfeature->id) }}" class="symbol symbol-50px">
+                                            <span class="symbol-label" style="background-image:url({{$propertyfeature->icon}});"></span>
                                         </a>
                                         @endcan 
                                         <!--end::Thumbnail-->
                                         <div class="ms-5">
                                             <!--begin::Title-->
-                                            <a href="{{ route('primary-amenities.show', $row->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$row->name}}</a>
+                                            <a href="{{ route('primary-amenities.edit', $propertyfeature->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$propertyfeature->name}}</a>
                                             <!--end::Title-->
                                             <!--begin::Description-->
-                                            <div class="text-muted fs-7 fw-bolder">{{$row->desc}}</div>
+                                            <div class="text-muted fs-7 fw-bolder">{{$propertyfeature->desc}}</div>
                                             <!--end::Description-->
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <!--begin::Badges-->
-                                    <div class="badge badge-light-success">{{$row->name}}</div>
+                                    <div class="badge badge-light-success">{{$propertyfeature->name}}</div>
                                     <!--end::Badges-->
                                 </td>
+                              
                                 <!--end::Category=-->
+                                <!--begin::Action=-->
+                                <td class="text-end">
+                                    <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">@lang('dashboard.actions')
+                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                    <span class="svg-icon svg-icon-5 m-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon--></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        @can('primary-amenities.edit')
+                                        <div class="menu-item px-3">
+                                            <a href="{{route('primary-amenities.edit', $propertyfeature->id)}}" class="menu-link px-3">تعديل</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        @endcan 
+                                        <!--begin::Menu item-->
+                                        @can('primary-amenities.destroy')
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3" data-kt-ecommerce-category-filter="delete_row" data-url="{{route('primary-amenities.destroy', $propertyfeature->id)}}" data-id="{{$propertyfeature->id}}">حذف</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        @endcan 
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                                <!--end::Action=-->
                                 
                             </tr>
                             <!--end::Table row-->

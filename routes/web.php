@@ -325,56 +325,6 @@ Route::post('delete-all-testimonials', [
 
 /*------------ end Of testimonials ----------*/
 
-/*------------ start Of banners ----------*/
-Route::get('banners', [
-    'uses'      => 'BannerController@index',
-    'as'        => 'banners.index',
-    'title'     => 'dashboard.banners',
-    'type'      => 'parent',
-    'child'     => [ 'banners.store','banners.edit', 'banners.update', 'banners.destroy'  ,'banners.deleteAll']
-]);
-
-# banners store
-Route::get('banners/create', [
-    'uses'  => 'BannerController@create',
-    'as'    => 'banners.create',
-    'title' => ['actions.add', 'dashboard.banner']
-]);
-
-# banners store
-Route::post('banners/store', [
-    'uses'  => 'BannerController@store',
-    'as'    => 'banners.store',
-    'title' => ['actions.add', 'dashboard.banner']
-]);
-
-# banners update
-Route::get('banners/{id}/edit', [
-    'uses'  => 'BannerController@edit',
-    'as'    => 'banners.edit',
-    'title' => ['actions.edit', 'dashboard.banner']
-]);
-
-# banners update
-Route::put('banners/{id}', [
-    'uses'  => 'BannerController@update',
-    'as'    => 'banners.update',
-    'title' => ['actions.edit', 'dashboard.banner']
-]);
-
-# banners delete
-Route::delete('banners/{id}', [
-    'uses'  => 'BannerController@destroy',
-    'as'    => 'banners.destroy',
-    'title' => ['actions.delete', 'dashboard.banner']
-]);
-#delete all banners
-Route::post('delete-all-banners', [
-    'uses'  => 'BannerController@deleteAll',
-    'as'    => 'banners.deleteAll',
-    'title' => ['actions.delete_all', 'dashboard.banners']
-]);
-/*------------ end Of banners ----------*/
 
 /*------------ start Of cities ----------*/
 Route::get('cities', [
@@ -547,7 +497,7 @@ Route::get('primary-amenities', [
     'as'        => 'primary-amenities.index',
     'title'     => 'dashboard.primary-amenities',
     'type'      => 'parent',
-    'child'     => ['primary-amenities.show']
+    'child'     => [ 'primary-amenities.store','primary-amenities.edit', 'primary-amenities.update', 'primary-amenities.destroy'  ,'primary-amenities.deleteAll']
 ]);
 
 # sub-amenities update
@@ -556,58 +506,48 @@ Route::get('primary-amenities/{id}/show', [
     'as'    => 'primary-amenities.show',
     'title' => ['actions.show', 'dashboard.primary-amenities']
 ]);
-
-/*------------ end Of primary-amenities ----------*/
-/*------------ start Of sub-amenities ----------*/
-Route::get('sub-amenities', [
-    'uses'      => 'SubAmenitiesController@index',
-    'as'        => 'sub-amenities.index',
-    'title'     => 'dashboard.sub-amenities',
-    'type'      => 'parent',
-    'child'     => [ 'sub-amenities.store','sub-amenities.edit', 'sub-amenities.update', 'sub-amenities.destroy'  ,'sub-amenities.deleteAll']
+Route::get('primary-amenities/create', [
+    'uses'  => 'PrimaryAmenitiesController@create',
+    'as'    => 'primary-amenities.create',
+    'title' => ['actions.add', 'dashboard.primary-amenities']
 ]);
 
 # sub-amenities store
-Route::get('sub-amenities/create', [
-    'uses'  => 'SubAmenitiesController@create',
-    'as'    => 'sub-amenities.create',
-    'title' => ['actions.add', 'dashboard.sub-amenities']
-]);
-
-# sub-amenities store
-Route::post('sub-amenities/store', [
-    'uses'  => 'SubAmenitiesController@store',
-    'as'    => 'sub-amenities.store',
-    'title' => ['actions.add', 'dashboard.sub-amenities']
+Route::post('primary-amenities/store', [
+    'uses'  => 'PrimaryAmenitiesController@store',
+    'as'    => 'primary-amenities.store',
+    'title' => ['actions.add', 'dashboard.primary-amenities']
 ]);
 
 # sub-amenities update
-Route::get('sub-amenities/{id}/edit', [
-    'uses'  => 'SubAmenitiesController@edit',
-    'as'    => 'sub-amenities.edit',
-    'title' => ['actions.edit', 'dashboard.sub-amenities']
+Route::get('primary-amenities/{id}/edit', [
+    'uses'  => 'PrimaryAmenitiesController@edit',
+    'as'    => 'primary-amenities.edit',
+    'title' => ['actions.edit', 'dashboard.primary-amenities']
 ]);
 
 # sub-amenities update
-Route::put('sub-amenities/{id}', [
-    'uses'  => 'SubAmenitiesController@update',
-    'as'    => 'sub-amenities.update',
-    'title' => ['actions.edit', 'dashboard.sub-amenities']
+Route::put('primary-amenities/{id}', [
+    'uses'  => 'PrimaryAmenitiesController@update',
+    'as'    => 'primary-amenities.update',
+    'title' => ['actions.edit', 'dashboard.primary-amenities']
 ]);
 
 # sub-amenities delete
-Route::delete('sub-amenities/{id}', [
-    'uses'  => 'SubAmenitiesController@destroy',
-    'as'    => 'sub-amenities.destroy',
-    'title' => ['actions.delete', 'dashboard.sub-amenities']
+Route::delete('primary-amenities/{id}', [
+    'uses'  => 'PrimaryAmenitiesController@destroy',
+    'as'    => 'primary-amenities.destroy',
+    'title' => ['actions.delete', 'dashboard.primary-amenities']
 ]);
 #delete all sub-amenities
-Route::post('delete-all-sub-amenities', [
-    'uses'  => 'SubAmenitiesController@deleteAll',
-    'as'    => 'sub-amenities.deleteAll',
-    'title' => ['actions.delete_all', 'dashboard.sub-amenities']
+Route::post('delete-all-primary-amenities', [
+    'uses'  => 'PrimaryAmenitiesController@deleteAll',
+    'as'    => 'primary-amenities.deleteAll',
+    'title' => ['actions.delete_all', 'dashboard.primary-amenities']
 ]);
-/*------------ end Of sub-amenities ----------*/
+
+/*------------ end Of primary-amenities ----------*/
+
 /*------------ start Of property-features ----------*/
 Route::get('property-features', [
     'uses'      => 'PropertyFeaturesController@index',
@@ -716,119 +656,8 @@ Route::post('delete-all-property-features', [
 
 
 
-/*------------ start Of notifications ----------*/
-    Route::get('notifications', [
-        'uses'      => 'NotificationController@index',
-        'as'        => 'notifications.index',
-        'title'     => 'dashboard.notifications',
-        'type'      => 'parent',
-        'child'     => ['notifications.store', 'notifications.destroy'  ,'notifications.deleteAll']
-    ]);
-
-    # notifications store
-    Route::get('notifications/create', [
-        'uses'  => 'NotificationController@create',
-        'as'    => 'notifications.create',
-        'title' => ['actions.add', 'dashboard.notification']
-    ]);
-
-    # notifications store
-    Route::post('notifications/store', [
-        'uses'  => 'NotificationController@store',
-        'as'    => 'notifications.store',
-        'title' => ['actions.add', 'dashboard.notification']
-    ]);
 
 
-    # notifications delete
-    Route::delete('notifications/{id}', [
-        'uses'  => 'NotificationController@destroy',
-        'as'    => 'notifications.destroy',
-        'title' => ['actions.delete', 'dashboard.notification']
-    ]);
-    #delete all notifications
-    Route::post('delete-all-notifications', [
-        'uses'  => 'NotificationController@deleteAll',
-        'as'    => 'notifications.deleteAll',
-        'title' => ['actions.delete_all', 'dashboard.notifications']
-    ]);
-
-    Route::post('send-notification', [
-
-        'uses'  => 'NotificationController@sendNotification',
-        'as'    => 'send-notification',
-        'title' => 'dashboard.send_notification'
-    ]);
-
-    Route::post('storeToken', [
-        'uses'  => 'NotificationController@storeToken',
-        'as'    => 'notifications.storeToken',
-        'title' => 'dashboard.store_token'
-    ]);
-    Route::post('notify', [
-        'uses'  => 'NotificationController@notify',
-        'as'    => 'notify',
-        'title' => 'dashboard.send_one_notification'
-    ]);
-    
-/*------------ end Of notifications ----------*/
-
-/*------------ start Of clients ----------*/
-Route::get('clients', [
-    'uses'      => 'ClientController@index',
-    'as'        => 'clients.index',
-    'title'     => 'dashboard.clients',
-    'type'      => 'parent',
-    'child'     => [ 'clients.create','clients.edit', 'clients.destroy'  ,'clients.deleteAll']
-]);
-
-# property_types store
-Route::get('clients/create', [
-    'uses'  => 'ClientController@create',
-    'as'    => 'clients.create',
-    'title' => ['actions.add', 'dashboard.clients']
-]);
-
-# property_types store
-Route::post('clients/store', [
-    'uses'  => 'ClientController@store',
-    'as'    => 'clients.store',
-    'title' => ['actions.add', 'dashboard.clients']
-]);
-# clients show
-Route::get('clients/{id}/show', [
-    'uses'  => 'ClientController@show',
-    'as'    => 'clients.show',
-    'title' => ['actions.show', 'dashboard.clients']
-]);
-
-# clients update
-Route::get('clients/{id}/edit', [
-    'uses'  => 'ClientController@edit',
-    'as'    => 'clients.edit',
-    'title' => ['actions.edit', 'dashboard.clients']
-]);
-
-# clients update
-Route::put('clients/{id}', [
-    'uses'  => 'ClientController@update',
-    'as'    => 'clients.update',
-    'title' => ['actions.edit', 'dashboard.clients']
-]);
-
-# clients delete
-Route::delete('clients/{id}', [
-    'uses'  => 'ClientController@destroy',
-    'as'    => 'clients.destroy',
-    'title' => ['actions.delete', 'dashboard.clients']
-]);
-#delete all clients
-Route::post('delete-all-clients', [
-    'uses'  => 'ClientController@deleteAll',
-    'as'    => 'clients.deleteAll',
-    'title' => ['actions.delete_all', 'dashboard.clients']
-]);
-/*------------ end Of clients ----------*/
 
 /*------------ start Of statuses ----------*/
 Route::get('statuses', [

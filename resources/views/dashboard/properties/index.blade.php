@@ -87,7 +87,7 @@
                                     <div class="d-flex">
                                         <div class="ms-5">
                                             <!--begin::Title-->
-                                            <a href="{{ route('properties.show', $property->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$property->title}}</a>
+                                            <a href="{{ route('all-properties.show', $property->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$property->title}}</a>
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fs-7 fw-bolder">{{$property->description}}</div>
@@ -97,12 +97,12 @@
                                 </td>
                                 <td>
                                     <!--begin::City-->
-                                    <div class="badge badge-light-success">{{$property->city->name}}</div>
+                                    <div class="badge badge-light-success">{{$property->city ? $property->city->name : ''}}</div>
                                     <!--end::City-->
                                 </td>
                                 <td>
                                     <!--begin::Neighborhood-->
-                                    <div class="badge badge-light-success">{{$property->neighborhood->name}}</div>
+                                    <div class="badge badge-light-success"> {{$property->neighborhood ? $property->neighborhood->name : ''}}</div>
                                     <!--end::Neighborhood-->
                                 </td>
                                 <td>
@@ -112,7 +112,8 @@
                                 </td>
                                 <td>
                                     <!--begin::User-->
-                                    <div class="badge badge-light-success">{{$property->project->name}}</div>
+                                    <div class="badge badge-light-success">{{$property->project ? $property->project->name : ''}}</div>
+                                    
                                     <!--end::User-->
                                 </td>
                                 <td>

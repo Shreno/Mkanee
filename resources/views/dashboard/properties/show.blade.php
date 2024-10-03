@@ -23,28 +23,7 @@
                     </div>
                     <!--end::Search-->
                 </div>
-                <!--end::Card title-->
-                <div class="card-toolbar">
-                    <?php $i=1; ?>
-                    @if($property->is_active==1)
-                    تمت الموافقة
-                    @elseif($property->is_active==2)
-                    تم الرفض
-                    @else
-                    @can('properties.edit')  
-                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#status{{$i}}">
-                    <i class="fa fa-link"></i>
-                    اجراء
-                   </button>
-                    @endcan                                 
-                    @endif 
-                    @include('dashboard.properties.model')
-
-                  
-                 
-                </div>
-                <!--end::Card toolbar-->
+           
             </div>
             <!--end::Card header-->
             <!--begin::Card body-->
@@ -99,14 +78,7 @@
                     </li>
                     <!--end:::Tab item-->
                       <!--begin:::Tab item-->
-                      <li class="nav-item" role="presentation">
-                        <a class="nav-link text-active-primary pb-5" data-bs-toggle="tab" href="#kt_ecommerce_settings_condition" aria-selected="false" role="tab" tabindex="-1">
-                        <!--begin::Svg Icon | path: icons/duotune/communication/com014.svg-->
-                        <span class="menu-icon">
-                            <img src="{{ asset('images/terms-and-conditions.png') }}" style="width:25px;height:25px">
-                        </span>
-                        <!--end::Svg Icon-->@lang('dashboard.booking-conditions')</a>
-                    </li>
+                  
                     <!--end:::Tab item-->
                       <!--begin:::Tab item-->
                       <li class="nav-item" role="presentation">
@@ -134,23 +106,7 @@
                                 </div>
                                 <!--end::Heading-->
 
-                                    <!--begin::Input group-->
-                                    <div class="row fv-row mb-7 fv-plugins-icon-container">
-                                        <div class="col-md-3 text-md-end">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mt-3">
-                                                <span class="required">@lang('dashboard.client') </span>
-                                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" aria-label="Set the title of the store for SEO." data-kt-initialized="1"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                        </div>
-                                        <div class="col-md-9">
-                                            <!--begin::Input-->
-                                            <input disabled type="text" class="form-control form-control-solid" name="app_name_en" value="{{$property->user->name}}">
-                                            <!--end::Input-->
-                                        <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                                    </div>
-                                    <!--end::Input group-->
+                          
                                
                                 <!--begin::Input group-->
                                 <div class="row fv-row mb-7 fv-plugins-icon-container">
@@ -188,41 +144,8 @@
                                 </div>
                                 <!--end::Input group-->
     
-                                  <!--begin::Input group-->
-                                  <div class="row fv-row mb-7 fv-plugins-icon-container">
-                                    <div class="col-md-3 text-md-end">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mt-3">
-                                            <span class="required">@lang('dashboard.check_in_time')</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" aria-label="Set the title of the store for SEO." data-kt-initialized="1"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                    </div>
-                                    <div class="col-md-9">
-                                        <!--begin::Input-->
-                                        <input disabled type="text" class="form-control form-control-solid" name="app_name_en" value="{{$property->check_in_time}}">
-                                        <!--end::Input-->
-                                    <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                                </div>
-                                <!--end::Input group-->
-                                 <!--begin::Input group-->
-                                 <div class="row fv-row mb-7 fv-plugins-icon-container">
-                                    <div class="col-md-3 text-md-end">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mt-3">
-                                            <span class="required">@lang('dashboard.check_out_time')</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" aria-label="Set the title of the store for SEO." data-kt-initialized="1"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                    </div>
-                                    <div class="col-md-9">
-                                        <!--begin::Input-->
-                                        <input disabled type="text" class="form-control form-control-solid" name="app_name_en" value="{{$property->check_out_time}}">
-
-                                        <!--end::Input-->
-                                    <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                                </div>
-                                <!--end::Input group-->
+                                
+                               
                                  <!--begin::Input group-->
                                  <div class="row fv-row mb-7 fv-plugins-icon-container">
                                     <div class="col-md-3 text-md-end">
@@ -236,6 +159,23 @@
                                     <div class="col-md-9">
                                         <!--begin::Input-->
                                         <input disabled type="text" class="form-control form-control-solid" name="app_name_en" value="{{$property->rate_per_day}}">
+                                        <!--end::Input-->
+                                    <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                </div>
+                                <!--end::Input group-->
+                                                                 <!--begin::Input group-->
+                                 <div class="row fv-row mb-7 fv-plugins-icon-container">
+                                    <div class="col-md-3 text-md-end">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                            <span class="required">المساحة بالقدم المربع</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" aria-label="Set the title of the store for SEO." data-kt-initialized="1"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                    </div>
+                                    <div class="col-md-9">
+                                        <!--begin::Input-->
+                                        <input disabled type="text" class="form-control form-control-solid" name="app_name_en" value="{{$property->area}}">
                                         <!--end::Input-->
                                     <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 </div>
@@ -474,31 +414,7 @@
 
                     </div>
 
-                    <div class="tab-pane fade  show" id="kt_ecommerce_settings_condition" role="tabpanel">
-                        <div class="row mb-7">
-                            <div class="col-md-9 offset-md-3">
-                                <h2>@lang('dashboard.booking-conditions')</h2>
-                            </div>
-
-                        </div>
-                        @foreach($property->propertyBookingConditions as $propertyBookingCondition)
-
-                            <!--begin::Input group-->
-                            <div class="row fv-row mb-7 fv-plugins-icon-container">
-                                <div class="col-md-3 text-md-end">
-                                    <img src="{{ asset($propertyBookingCondition->icon) }}"  style="width:60px;height:60px;border-radius:10px" alt="">
-
-                                </div>
-                                <div class="col-md-9">
-                                    <!--begin::Input-->
-                                    <input disabled type="text" class="form-control form-control-solid" name="app_name_en" value="{{$propertyBookingCondition->name}}">
-                                    <!--end::Input-->
-                                <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            </div>
-                            <!--end::Input group-->
-                        @endforeach
-
-                    </div>
+                 
 
                     <div class="tab-pane fade  show" id="kt_ecommerce_settings_image" role="tabpanel">
                         <div class="row mb-7">

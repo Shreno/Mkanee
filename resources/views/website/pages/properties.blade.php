@@ -131,8 +131,10 @@
                                                     <div class="text-address"><p class="p-12">{{$property->address}}</p></div>
                                                     <div class="money fs-18 fw-6 text-color-6"><a href="{{ route('all-properties.show', $property->id) }}">${{$property->rate_per_day}}</a></div>  
                                                     <div class="days-box flex justify-space align-center">
-                                                        <div class="img-author"><img src="{{asset($property->project->image)}}" alt="images"></div>
-                                                        <div class="days">{{$property->project->name}}</div>
+ @if($property->project !=NULL)
+                                                        <div class="img-author"><img src="{{asset($property->project ? $property->project->image : '')}}" alt="images"></div>
+                                                    @endif                                                        
+                                                        <div class="days">{{$property->project ? $property->project->name : ''}} </div>
                                                     </div>                                           
                                                 </div>
                             </div>

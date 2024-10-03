@@ -24,6 +24,8 @@ class PrimaryAmenitiesController extends Controller
         $data = $request->validate([
             'name.ar' => 'required|string|max:191|unique:primary_amenities,name->ar',
             'name.en' => 'required|string|max:191|unique:primary_amenities,name->en',
+            'name.fa' => 'required|string|max:191|unique:primary_amenities,name->fa',
+
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
@@ -50,6 +52,8 @@ class PrimaryAmenitiesController extends Controller
         $data = $request->validate([
             'name.ar' => 'unique:primary_amenities,name->ar,' . $id . ',id',
             'name.en' => 'unique:primary_amenities,name->en,' . $id . ',id',
+            'name.fa' => 'unique:primary_amenities,name->fa,' . $id . ',id',
+
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 

@@ -112,51 +112,30 @@
                                 </select>
                             </div>
                             <!--  -->
-                            <div class="mb-10 fv-row">
+                           <div class="mb-10 fv-row">
     <label class="form-label">المرافق الأساسية</label>
-    <select name="primary_amenities[]" multiple id="primary_amenities" class="form-select mb-2">
+    <div id="amenities-wrapper">
         @foreach($primaryAmenities as $primaryAmenity)
-            <option value="{{ $primaryAmenity->id }}" 
-                {{ isset($property) && $property->primaryAmenities->contains($primaryAmenity->id) ? 'selected' : '' }}>
-                {{ $primaryAmenity->name }}
-            </option>
-        @endforeach
-    </select>
-</div>
+            <div class="d-flex align-items-center mb-3">
+                <input style="direction:rtl;" type="checkbox" name="primary_amenities[]" value="{{ $primaryAmenity->id }}" 
+                    id="amenity_{{ $primaryAmenity->id }}" 
+                    {{ isset($property) && $property->primaryAmenities->contains($primaryAmenity->id) ? 'checked' : '' }} 
+                    class="form-check-input me-2" 
+                    onchange="toggleQuantityInput({{ $primaryAmenity->id }})">
 
-<div class="mb-10 fv-row">
-    <label class="form-label">المرافق الفرعية</label>
-    <div id="sub_amenities_container">
-        @foreach($primaryAmenities as $primaryAmenity)
-            <div class="sub-amenities" id="sub_amenities_{{ $primaryAmenity->id }}" style="display: none;">
-                <label class="form-label">{{ $primaryAmenity->name }} - المرافق الفرعية</label>
-                <select name="sub_amenities_{{ $primaryAmenity->id }}[]" multiple class="form-select mb-2 sub-amenity-select" data-primary-id="{{ $primaryAmenity->id }}">
-                    @foreach($primaryAmenity->subAmenities as $subAmenity)
-                        <option value="{{ $subAmenity->id }}" 
-                            {{ isset($property) && $property->subAmenities->contains($subAmenity->id) ? 'selected' : '' }}>
-                            {{ $subAmenity->name }}
-                        </option>
-                    @endforeach
-                </select>
-
-                <!-- حقول العدد الخاصة بالمرافق الفرعية -->
-                @foreach($primaryAmenity->subAmenities as $subAmenity)
-                <?php  if(isset($property))
-                {
-                    $number=$property->Property_Sub_Amenity->where('sub_amenity_id',$subAmenity->id)->first();
-                }?>
-                    <div class="sub-amenity-quantity" id="quantity_{{ $subAmenity->id }}" style="display: none;">
-                        <label>العدد لـ {{ $subAmenity->name }}</label>
-                        <input type="number" name="sub_amenity_quantity[{{ $subAmenity->id }}]" 
-                            class="form-control mb-2" 
-                            placeholder="العدد لـ {{ $subAmenity->name }}" 
-                            value="{{ isset($number) ? $number->number ?? 0 : 0 }}">
-                    </div>
-                @endforeach
+                <label for="amenity_{{ $primaryAmenity->id }}" class="form-label me-4">{{ $primaryAmenity->name }}</label>
+                
+                <input  type="number" name="amenity_quantities[{{ $primaryAmenity->id }}]" 
+                    id="quantity_{{ $primaryAmenity->id }}" 
+                    class="form-control quantity-input" 
+                    value="{{ isset($property) && $property->primaryAmenities->contains($primaryAmenity->id) ? $property->primaryAmenities->find($primaryAmenity->id)->pivot->number : '' }}" 
+                    placeholder="العدد" 
+                    style="{{ isset($property) && $property->primaryAmenities->contains($primaryAmenity->id) ? 'direction: rtl;' : 'display:none;direction: rtl;' }} ">
             </div>
         @endforeach
     </div>
 </div>
+
                            <!--  -->
 
                           
@@ -248,42 +227,17 @@
 
 </script>
 <script>
-  $(document).ready(function() {
-    // عندما يتم تغيير المرافق الأساسية
-    $('#primary_amenities').on('change', function() {
-        var selectedAmenities = $(this).val(); // جلب المرافق الأساسية المختارة
+    function toggleQuantityInput(amenityId) {
+        var checkbox = document.getElementById('amenity_' + amenityId);
+        var quantityInput = document.getElementById('quantity_' + amenityId);
 
-        // إخفاء جميع المرافق الفرعية أولاً
-        $('.sub-amenities').hide();
-
-        // إظهار المرافق الفرعية الخاصة بالمرافق الأساسية المختارة
-        if (selectedAmenities) {
-            selectedAmenities.forEach(function(amenityId) {
-                $('#sub_amenities_' + amenityId).show();
-            });
+        if (checkbox.checked) {
+            quantityInput.style.display = 'block';
+        } else {
+            quantityInput.style.display = 'none';
+            quantityInput.value = ''; // Clear the quantity if unchecked
         }
-    });
-
-    // عندما يتم تغيير المرافق الفرعية
-    $('.sub-amenity-select').on('change', function() {
-        var primaryId = $(this).data('primary-id');
-        var selectedSubAmenities = $(this).val(); // جلب المرافق الفرعية المختارة
-
-        // إخفاء جميع حقول العدد للمرافق الفرعية المرتبطة بهذا المرفق الأساسي
-        $('#sub_amenities_' + primaryId + ' .sub-amenity-quantity').hide();
-
-        // إظهار حقول العدد للمرافق الفرعية المختارة
-        if (selectedSubAmenities) {
-            selectedSubAmenities.forEach(function(subAmenityId) {
-                $('#quantity_' + subAmenityId).show();
-            });
-        }
-    });
-
-    // عرض المرافق الفرعية وحقول العدد المختارة مسبقًا عند تحميل الصفحة
-    $('#primary_amenities').trigger('change');
-    $('.sub-amenity-select').trigger('change');
-});
+    }
 </script>
 
 @endpush

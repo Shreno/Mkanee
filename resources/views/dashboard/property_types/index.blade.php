@@ -55,7 +55,6 @@
                                     <input class="form-check-input" id="checkedAll"  type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_category_table .form-check-input" value="1" />
                                 </div>
                             </th>
-                            <th class="min-w-250px">@lang('dashboard.image')</th>
                             <th class="min-w-150px">@lang('dashboard.name')</th>
                             <th class="text-end min-w-70px">@lang('dashboard.actions')</th>
                         </tr>
@@ -77,11 +76,7 @@
                                 <!--begin::Category=-->
                                 <td>
                                     <div class="d-flex">
-                                        <!--begin::Thumbnail-->
-                                        <a href="{{ route('property_types.edit', $category->id) }}" class="symbol symbol-50px">
-                                            <span class="symbol-label" style="background-image:url({{$category->image}});"></span>
-                                        </a>
-                                        <!--end::Thumbnail-->
+                                 
                                         <div class="ms-5">
                                             <!--begin::Title-->
                                             <a href="{{ route('property_types.edit', $category->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$category->name}}</a>

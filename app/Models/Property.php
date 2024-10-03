@@ -34,7 +34,7 @@ class Property extends Model
 
     public function primaryAmenities()
     {
-        return $this->belongsToMany(PrimaryAmenity::class, 'property_primary_amenity');
+        return $this->belongsToMany(PrimaryAmenity::class, 'property_primary_amenity')->withPivot('number');;
     }
 
 

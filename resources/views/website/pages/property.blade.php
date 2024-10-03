@@ -70,7 +70,8 @@
                                     <div class="box-1">
                                         <div class="title-heading fs-30 fw-7 lh-45">{{$property->title}}</div>
                                         <div class="inner-content">
-                                            <h4>{{$property->project->name}}</h4>
+                                            <h4>{{$property->project ? $property->project->name : ''}} 
+                                            </h4>
                                         </div>
                                         <div class="inner flex">
                                             <div class="text-address"><p>{{$property->address}}</p></div>
@@ -96,28 +97,29 @@
                                 <h3 class="titles">{{ __('website.overview') }}</h3>
                                 <div class="icon-wrap flex justify-space">
                                             <!--  -->
-                                @foreach($property->primaryAmenities as $primaryAmenitie)
+                                @foreach($property->primaryAmenities as $i=>$primaryAmenitie)
+                                 @if($i % 2 == 0)
+                @if($i != 0) {{-- أغلق div السابقة إذا لم تكن الأولى --}}
+                    </div>
+                @endif
+                <div class="box-icon">
+            @endif
 
-                                            <div class="box-icon">
-                                            @foreach($property->Property_Sub_Amenity as $index=>$Property_Sub_Amenity)
-                                            @if($Property_Sub_Amenity->subAmenities->amenity->id==$primaryAmenitie->id)
-
-
+                                           
                                             <div class="inner flex">
                                                 <div class="icon">
-                                                    <img width="16" height="17" src="{{$Property_Sub_Amenity->subAmenities->amenity->icon}}" alt="">
+                                                    <img width="16" height="17" src="{{$primaryAmenitie->icon}}" alt="">
                                                     
                                                 </div>
                                                 <div class="content">
-                                                    <div class="font-2">{{$Property_Sub_Amenity->subAmenities->name}}:</div>
-                                                    <div class="font-2 fw-7">{{$Property_Sub_Amenity->number}}</div>
+                                                    <div class="font-2">{{$primaryAmenitie->name}}:</div>
+                                                    <div class="font-2 fw-7">{{$primaryAmenitie->pivot->number}}</div>
                                                 </div>
                                             </div>
-                                            @endif
-                                            @endforeach
+                                          
                                            
-                                        </div>
                                         @endforeach
+                                        </div>
                                            
                                     
                                       
@@ -135,8 +137,7 @@
                                 <div class="box-featured flex-two">
                                     <div class="inner">
 
-                                    @foreach($property->propertyFeatures as $index => $propertyFeature)
-        @if($propertyFeature->type == 'internal')
+                                    @foreach($property->propertyFeatures->where('type','internal') as $index => $propertyFeature)
 
             {{-- افتح div جديدة عند كل 3 عناصر --}}
             @if($index % 3 == 0)
@@ -149,7 +150,6 @@
             {{-- عرض العناصر --}}
             <span class="flex-three"><i class="far fa-check"></i> {{$propertyFeature->name}}</span>
 
-        @endif
     @endforeach
                                         </div>
 
@@ -161,8 +161,7 @@
                                 <h3 class="titles">{{ __('website.external_features') }}</h3>
                                 <div class="box-featured flex-two">
                                         <div class="inner">
-                                        @foreach($property->propertyFeatures as $index => $propertyFeature)
-        @if($propertyFeature->type == 'external')
+                                        @foreach($property->propertyFeatures->where('type','external') as $index => $propertyFeature)
 
             {{-- افتح div جديدة عند كل 3 عناصر --}}
             @if($index % 3 == 0)
@@ -175,7 +174,6 @@
             {{-- عرض العناصر --}}
             <span class="flex-three"><i class="far fa-check"></i> {{$propertyFeature->name}}</span>
 
-        @endif
     @endforeach
 </div>
                                         </div>
@@ -188,9 +186,9 @@
     <h3 class="titles">{{ __('website.location_on_map') }}</h3>
     <div class="box flex">
         <ul>
-            <li class="flex"><span class="one fw-6">{{ __('website.address') }}</span><span class="two">{{$property->address}}</span></li>
-            <li class="flex"><span class="one fw-6">{{ __('website.city') }}</span><span class="two">{{$property->city->name}}</span></li>
-            <li class="flex"><span class="one fw-6">{{ __('website.neighborhood') }}</span><span class="two">{{$property->neighborhood->name}}</span></li>
+            <li class="flex"><span class="one fw-6">{{ __('website.address') }}</span><span class="two">{{$property->address}} </span></li>
+            <li class="flex"><span class="one fw-6">{{ __('website.city') }}</span><span class="two"> {{$property->city ? $property->city->name : ''}} </span></li>
+            <li class="flex"><span class="one fw-6">{{ __('website.neighborhood') }}</span><span class="two"> {{$property->neighborhood ? $property->neighborhood->name : ''}} </span></li>
         </ul>
     </div>  
     <iframe class="map-content" src="{{$property->map}}" allowfullscreen="" loading="lazy"></iframe>                            
