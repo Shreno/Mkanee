@@ -41,7 +41,7 @@ return [
     'properties_for_sale' => 'املاک برای فروش',
     'best_deals_now' => 'بهترین پیشنهادات برای املاک اکنون',
     'view_all_properties' => 'مشاهده تمام املاک',
-    "Search for Properties by Project"=>"جستجو برای املاک بر اساس پروژه",
+    "Search for Properties by Location"=>"جستجوی خواص بر اساس مکان",
     "Find your dream apartment with our listings"=>"آپارتمان رویایی خود را از طریق لیست ما پیدا کنید",
     "listing_count"=>"فهرست کنید",
     "You need a home"=>"شما به یک خانه نیاز دارید",

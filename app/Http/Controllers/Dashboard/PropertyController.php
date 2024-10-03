@@ -13,7 +13,7 @@ use App\Models\SubAmenity;
 use App\Models\PropertyFeature;
 use App\Models\Project;
 use App\Models\PropertyType;
-use App\Models\Property_Sub_Amenity;
+use App\Models\PropertySubAmenity;
 
 
 use Illuminate\Http\Request;
@@ -147,7 +147,7 @@ class PropertyController extends Controller
                 foreach ($subAmenities as $subAmenityId) {
                     // حفظ الكمية المرتبطة بالمرفق الفرعي
                     $quantity = $request->input('sub_amenity_quantity.' . $subAmenityId, 0);
-                    Property_Sub_Amenity::where('sub_amenity_id',$subAmenityId)->where('property_id',$property->id)->delete();
+                    PropertySubAmenity::where('sub_amenity_id',$subAmenityId)->where('property_id',$property->id)->delete();
     
                     // ربط المرافق الفرعية بالعقار مع الكمية
                     $property->subAmenities()->attach($subAmenityId, ['number' => $quantity]);
@@ -248,7 +248,7 @@ class PropertyController extends Controller
                 foreach ($subAmenities as $subAmenityId) {
                     // حفظ الكمية المرتبطة بالمرفق الفرعي
                     $quantity = $request->input('sub_amenity_quantity.' . $subAmenityId, 0);
-                    Property_Sub_Amenity::where('sub_amenity_id',$subAmenityId)->where('property_id',$property->id)->delete();
+                    PropertySubAmenity::where('sub_amenity_id',$subAmenityId)->where('property_id',$property->id)->delete();
     
                     // ربط المرافق الفرعية بالعقار مع الكمية
                     $property->subAmenities()->attach($subAmenityId, ['number' => $quantity]);
@@ -266,4 +266,27 @@ class PropertyController extends Controller
 
         return back();
     }
+
+    // 
+    public function destroy($id)
+    {
+        $neighborhood = Property::findOrFail($id);
+        $neighborhood->delete();
+        return response()->json();
+    }
+
+    public function deleteAll(Request $request)
+    {
+        $requestIds = json_decode($request->data);
+        foreach ($requestIds as $id) {
+            $ids[] = $id->id;
+        }
+        if (Property::whereIn('id', $ids)->delete()) {
+            return response()->json('success');
+        } else {
+            return response()->json('failed');
+        }
+    }
+
+    // 
 }

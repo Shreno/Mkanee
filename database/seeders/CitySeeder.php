@@ -16,10 +16,10 @@ class CitySeeder extends Seeder
     {
         DB::table('cities')->insert([
             ['id' => 1, 'name' => json_encode(['ar' => 'تبوك', 'en' => 'Tabuk', 'fa' => 'تبوک']), 'image' => "cities/Tabuk.jpg"],
-            ['id' => 3, 'name' => json_encode(['ar' => 'الرياض', 'en' => 'Riyadh', 'fa' => 'ریاض']), 'image' => "cities/Riyadh.jpg"],
-            ['id' => 5, 'name' => json_encode(['ar' => 'الطائف', 'en' => 'At Taif', 'fa' => 'طائف']), 'image' => "cities/Taif.jpg"],
-            ['id' => 10, 'name' => json_encode(['ar' => 'حائل', 'en' => 'Hail', 'fa' => 'حائل']), 'image' => "cities/Hail.jpg"],
-            ['id' => 11, 'name' => json_encode(['ar' => 'بريدة', 'en' => 'Buraydah', 'fa' => 'بریده']), 'image' => "cities/Buraydah.jpg"],
+            ['id' => 2, 'name' => json_encode(['ar' => 'الرياض', 'en' => 'Riyadh', 'fa' => 'ریاض']), 'image' => "cities/Riyadh.jpg"],
+            ['id' => 3, 'name' => json_encode(['ar' => 'الطائف', 'en' => 'At Taif', 'fa' => 'طائف']), 'image' => "cities/Taif.jpg"],
+            ['id' => 4, 'name' => json_encode(['ar' => 'حائل', 'en' => 'Hail', 'fa' => 'حائل']), 'image' => "cities/Hail.jpg"],
+            ['id' => 5, 'name' => json_encode(['ar' => 'بريدة', 'en' => 'Buraydah', 'fa' => 'بریده']), 'image' => "cities/Buraydah.jpg"],
            
         ]);
     }

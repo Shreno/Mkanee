@@ -27,7 +27,8 @@ return new class extends Migration
 
             
             $table->integer('is_active')->default(0); 
-            $table->integer('area')->nullable(); // استبدل column_name بالعمود الذي تريد أن يليه عمود view
+            $table->decimal('area', 10, 2)->default(0);
+
             $table->integer('view')->default(0);
 
             $table->time('check_in_time')->nullable(); // وقت الوصول، الافتراضي 04:00 مساءً

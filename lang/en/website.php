@@ -40,7 +40,7 @@ return [
     'properties_for_sale' => 'Properties for Sale',
     'best_deals_now' => 'The best deals on properties now',
     'view_all_properties' => 'View All Properties',
-    "Search for Properties by Project"=>"Search for Properties by Project",
+    "Search for Properties by Location"=>"Search for Properties by Location",
     "Find your dream apartment with our listings"=>"Find your dream apartment with our listings",
     "listing_count"=>"listing count",
     "You need a home"=>"You need a home",

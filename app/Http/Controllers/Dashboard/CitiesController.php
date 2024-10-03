@@ -76,13 +76,12 @@ class CitiesController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
     
-        return response()->json();
         
         // تحديث المدينة باستخدام البيانات التي تم التحقق منها
         $city->update($data);
     
         // إرجاع استجابة JSON بعد التحديث بنجاح
-        return response()->json(['message' => 'City updated successfully.', 'city' => $city]);
+        return response()->json();
     }
 
 

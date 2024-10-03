@@ -55,7 +55,7 @@ class Property extends Model
 
     public function Property_Sub_Amenity()
     {
-        return $this->hasMany(Property_Sub_Amenity::class);
+        return $this->hasMany(PropertySubAmenity::class);
     }
 
     

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('primary_amenities', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->text('name');
             $table->string('icon');
             $table->timestamps();
         });

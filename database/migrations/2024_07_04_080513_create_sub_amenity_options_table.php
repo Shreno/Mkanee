@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('sub_amenity_options', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sub_amenity_id')->constrained()->onDelete('cascade');
-            $table->string('name');
+            $table->text('name');
             $table->timestamps();
         });
     }

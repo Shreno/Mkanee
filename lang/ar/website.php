@@ -40,7 +40,7 @@ return [
     'properties_for_sale' => 'عقارات للبيع',
     'best_deals_now' => 'أفضل العروض على العقارات الآن',
     'view_all_properties' => 'عرض جميع العقارات',
-    "Search for Properties by Project"=>"ابحث عن العقارات حسب المشروع",
+    "Search for Properties by Location"=>"ابحث عن العقارات حسب الموقع",
     "Find your dream apartment with our listings"=>"ابحث عن شقة أحلامك مع قائمتنا",
     "listing_count"=>"القايمة",
     "You need a home"=>"انت بحاجة الى منزل",

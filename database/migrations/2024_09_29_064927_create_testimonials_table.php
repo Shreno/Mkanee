@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('job_title');
+            $table->text('name');
+            $table->text('job_title');
             $table->text('desc');
             $table->string('image')->nullable(); // لإضافة صورة اختيارية
             $table->timestamps();

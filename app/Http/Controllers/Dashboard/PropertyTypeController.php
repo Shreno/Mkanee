@@ -3,27 +3,21 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\IPropertyTypeRepository;
-use App\Requests\dashboard\CreateUpdateCategoryRequest;
 use Illuminate\Http\Request;
 use App\Models\PropertyType;
+use Illuminate\Validation\Rule;
+
 
 use Illuminate\Support\Facades\Storage;
 
 class PropertyTypeController extends Controller
 {
-    private $catRepository;
-
-    public function __construct(IPropertyTypeRepository $catRepository){
-
-        $this->catRepository = $catRepository;
-       
-    }
+  
 
 
     public function index()
     {
-        $categories = $this->catRepository->getAll();
+        $categories =PropertyType::orderBy('created_at','desc')->get();
         return view('dashboard.property_types.index' , compact('categories'));
     }
 
@@ -32,9 +26,21 @@ class PropertyTypeController extends Controller
         return view('dashboard.property_types.create');
     }
 
-    public function store(CreateUpdateCategoryRequest $request)
+    public function store(Request $request)
     {
-        $this->catRepository->create($request->all());
+        $data = $request->validate([
+            'name.ar' => 'required|string|max:191|unique:property_types,name->ar',
+            'name.en' => 'required|string|max:191|unique:property_types,name->en',
+            'name.fa' => 'required|string|max:191|unique:property_types,name->fa',
+
+            'desc.ar'         => 'nullable|string|max:191',
+            'desc.en'         => 'nullable|string|max:191',
+            'desc.fa'         => 'nullable|string|max:191',
+
+            'image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+        ]);
+        
+        PropertyType::create($data);
         return response()->json();
     }
 
@@ -45,16 +51,48 @@ class PropertyTypeController extends Controller
         return view('dashboard.property_types.edit' , compact('category'));
     }
 
-    public function update(CreateUpdateCategoryRequest $request , $id)
+    public function update(Request $request , $id)
     {
-        $this->catRepository->update($request->validated() , $id);
-        return response()->json();
+ // العثور على المدينة المحددة أو إرجاع خطأ 404 إذا لم توجد
+ $PropertyType = PropertyType::findOrFail($id);
+    
+ // التحقق من صحة المدخلات
+ $data = $request->validate([
+     'name.ar' => [
+         'required',
+         'string',
+         'max:191',
+         Rule::unique('property_types', 'name->ar')->ignore($PropertyType->id),
+     ],
+     'name.en' => [
+         'required',
+         'string',
+         'max:191',
+         Rule::unique('property_types', 'name->en')->ignore($PropertyType->id),
+     ],
+     'name.fa' => [
+         'required',
+         'string',
+         'max:191',
+         Rule::unique('property_types', 'name->fa')->ignore($PropertyType->id),
+     ],
+     'desc.ar' => 'nullable|string|max:191',
+     'desc.en' => 'nullable|string|max:191',
+     'desc.fa' => 'nullable|string|max:191',
+     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+ ]);
+
+ 
+ // تحديث المدينة باستخدام البيانات التي تم التحقق منها
+ $PropertyType->update($data);      
+   return response()->json();
     }
 
 
     public function destroy($id)
     {
-        $this->catRepository->forceDelete($id);
+        $PropertyType = PropertyType::findOrFail($id);
+        $PropertyType->delete();
         return response()->json();
 
     }
@@ -66,8 +104,8 @@ class PropertyTypeController extends Controller
         foreach ($requestIds as $id) {
           $ids[] = $id->id;
         }
-        if ($this->catRepository->deleteForceWhereIn('id', $ids)) {
-          return response()->json('success');
+        if (PropertyType::whereIn('id', $ids)->delete()) {
+            return response()->json('success');
         } else {
           return response()->json('failed');
         }

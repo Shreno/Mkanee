@@ -11,7 +11,7 @@ class CreateSubAmenitiesTable extends Migration
         Schema::create('sub_amenities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('primary_amenity_id')->constrained()->onDelete('cascade');
-            $table->string('name');
+            $table->text('name');
             $table->enum('type', ['numeric', 'select', 'multiselect', 'boolean', 'dimension']);
             $table->boolean('is_required')->default(false);
             $table->timestamps();

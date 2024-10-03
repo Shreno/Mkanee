@@ -47,12 +47,15 @@ class PropertySeeder extends Seeder
                 'title' => $propertyData['title'],
                 'description' => $propertyData['description'],
                 'map' => 'https://maps.example.com/property-location',
-                'address' => '123 Property Address',
+                'address' => ['ar' => 'عنوان العقار 123', 'en' => '123 Property Address', 'fa' => 'آدرس ملک 123'],
+
                 'city_id' => $city->id,
                 'neighborhood_id' => $neighborhood->id,
                 'direction' => 'north',
                 'property_type_id' => $propertyType->id,
                 'project_id' => $project->id,
+                'area'=>'150',
+                
             ]);
 
             // ربط الميزات والامتيازات بالعقار

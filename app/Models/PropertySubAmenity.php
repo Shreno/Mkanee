@@ -8,10 +8,10 @@ use App\Traits\UploadTrait;
 use Spatie\Translatable\HasTranslations;
 
 
-class Property_Sub_Amenity extends Model
+class PropertySubAmenity extends Model
 {
     use HasFactory , UploadTrait ;
-    protected  $table="Property_Sub_Amenity";
+    protected  $table="property_sub_amenity";
 
     protected $fillable = ['property_id' , 'sub_amenity_id' , 'number'];
 
